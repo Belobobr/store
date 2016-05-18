@@ -1,0 +1,9 @@
+<resources>
+  <string name="app_name">StoreProject</string>
+  <string name="title_product_detail">Product Detail</string>
+  <string name="search">Search</string>
+  <string name="help">Help</string>
+  <string name="open_navigation_drawer">Open menu</string>
+  <string name="close_navigation_drawer">Close menu</string>
+  <string name="products">Products</string>
+</resources>
