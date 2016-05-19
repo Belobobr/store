@@ -2,59 +2,89 @@ package com.mixailsednev.storeproject;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
+import android.support.annotation.MenuRes;
+import android.support.annotation.NonNull;
 import android.support.v4.app.NavUtils;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 
-public class ProductDetailActivity extends AppCompatActivity {
+public class ProductDetailActivity extends AppCompatActivity
+    implements Toolbar.OnMenuItemClickListener
+{
+
+    private Toolbar detailsToolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_detail);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.detail_toolbar);
-        setSupportActionBar(toolbar);
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own detail action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
-
-        ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null) {
-            actionBar.setDisplayHomeAsUpEnabled(true);
-        }
 
         if (savedInstanceState == null) {
-            Bundle arguments = new Bundle();
-            arguments.putString(ProductDetailFragment.ARG_ITEM_ID,
-                    getIntent().getStringExtra(ProductDetailFragment.ARG_ITEM_ID));
-            ProductDetailFragment fragment = new ProductDetailFragment();
-            fragment.setArguments(arguments);
             getSupportFragmentManager().beginTransaction()
-                    .add(R.id.details_container, fragment)
+                    .add(R.id.details_container, ProductDetailFragment.newInstance(getProductId()))
                     .commit();
         }
+
+        detailsToolbar = (Toolbar) findViewById(R.id.detail_toolbar);
+        detailsToolbar.setTitle(getString(R.string.products));
+        detailsToolbar.setNavigationIcon(R.drawable.back);
+        detailsToolbar.setOnMenuItemClickListener(this);
+        detailsToolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                NavUtils.navigateUpTo(ProductDetailActivity.this, new Intent(ProductDetailActivity.this, MainActivity.class));
+            }
+        });
+        updateDetailsMenu(inEditMode() ? R.menu.edit_menu_menu : R.menu.details_menu);
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-        if (id == android.R.id.home) {
-            NavUtils.navigateUpTo(this, new Intent(this, MainActivity.class));
-            return true;
+    public boolean onMenuItemClick(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.edit:
+                editProduct();
+                break;
+            case R.id.complete:
+                editProductComplete();
+                break;
         }
-        return super.onOptionsItemSelected(item);
+        return false;
     }
 
+    @NonNull
+    private String getProductId() {
+        return getIntent().getExtras().getString(ProductDetailFragment.ARG_PRODUCT_ID, "");
+    }
+
+    private void editProduct() {
+        ProductEditFragment fragment = ProductEditFragment.newInstance(getProductId());
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.details_container, fragment, ProductEditFragment.TAG)
+                .commit();
+
+        updateDetailsMenu(R.menu.edit_menu_menu);
+    }
+
+    private void editProductComplete() {
+        ProductDetailFragment fragment = ProductDetailFragment.newInstance(getProductId());
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.details_container, fragment)
+                .commit();
+
+        updateDetailsMenu(R.menu.details_menu);
+    }
+
+    private void updateDetailsMenu(@MenuRes int menu) {
+        if (detailsToolbar != null) {
+            detailsToolbar.getMenu().clear();
+            detailsToolbar.inflateMenu(menu);
+        }
+    }
+
+    private boolean inEditMode() {
+        return getSupportFragmentManager().findFragmentByTag(ProductEditFragment.TAG) != null;
+    }
 
 }

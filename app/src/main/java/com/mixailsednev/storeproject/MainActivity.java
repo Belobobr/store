@@ -3,7 +3,9 @@ package com.mixailsednev.storeproject;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.support.annotation.MenuRes;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.widget.DrawerLayout;
@@ -14,12 +16,17 @@ import android.view.MenuItem;
 import android.view.View;
 
 public class MainActivity extends AppCompatActivity
-        implements ProductListFragment.ProductSelectedListener, Toolbar.OnMenuItemClickListener
+    implements ProductListFragment.ProductSelectedListener, Toolbar.OnMenuItemClickListener
 {
     private boolean mTwoPane;
+    //TODO move to model view? / presenter
+    @NonNull
+    private String selectedProductId;
 
-    protected DrawerLayout mDrawerLayout;
-    private ActionBarDrawerToggle mDrawerToggle;
+    protected DrawerLayout drawerlayout;
+    private ActionBarDrawerToggle drawerToggle;
+    @Nullable
+    private Toolbar detailsToolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,45 +58,82 @@ public class MainActivity extends AppCompatActivity
         mainToolbar.setTitle(getString(R.string.products));
         mainToolbar.setNavigationIcon(R.drawable.ic_menu);
 
-        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-        mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, mainToolbar,
+        drawerlayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawerToggle = new ActionBarDrawerToggle(this, drawerlayout, mainToolbar,
                 R.string.open_navigation_drawer, R.string.close_navigation_drawer) {
         };
 
-        mDrawerLayout.setDrawerListener(mDrawerToggle);
-        mDrawerToggle.syncState();
+        drawerlayout.setDrawerListener(drawerToggle);
+        drawerToggle.syncState();
 
-        Toolbar detailsToolbar = (Toolbar) findViewById(R.id.detail_toolbar);
-        detailsToolbar.inflateMenu(R.menu.details_menu);
-        detailsToolbar.setOnMenuItemClickListener(this);
+        detailsToolbar = (Toolbar) findViewById(R.id.detail_toolbar);
+        if (detailsToolbar != null) {
+            detailsToolbar.setOnMenuItemClickListener(this);
+        }
+        updateDetailsMenu(inEditMode() ? R.menu.edit_menu_menu : R.menu.details_menu);
     }
 
     @Override
     public boolean onMenuItemClick(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.edit:
+               editProduct();
+                return true;
+            case R.id.complete:
+                editProductComplete();
+                return true;
+        }
         return false;
     }
 
     @Override
     public void onConfigurationChanged(final Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
-        mDrawerToggle.onConfigurationChanged(newConfig);
+        drawerToggle.onConfigurationChanged(newConfig);
     }
 
     @Override
     public void productSelected(@NonNull String productId) {
+        this.selectedProductId = productId;
+
         if (mTwoPane) {
-            Bundle arguments = new Bundle();
-            arguments.putString(ProductDetailFragment.ARG_ITEM_ID, productId);
-            ProductDetailFragment fragment = new ProductDetailFragment();
-            fragment.setArguments(arguments);
             getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.details_container, fragment)
+                    .replace(R.id.details_container, ProductDetailFragment.newInstance(productId))
                     .commit();
         } else {
             Intent intent = new Intent(this, ProductDetailActivity.class);
-            intent.putExtra(ProductDetailFragment.ARG_ITEM_ID, productId);
+            intent.putExtra(ProductDetailFragment.ARG_PRODUCT_ID, productId);
 
             this.startActivity(intent);
         }
+    }
+
+    private void editProduct() {
+        ProductEditFragment fragment = ProductEditFragment.newInstance(selectedProductId);
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.details_container, fragment)
+                .commit();
+
+        updateDetailsMenu(R.menu.edit_menu_menu);
+    }
+
+    private void editProductComplete() {
+         ProductDetailFragment fragment = ProductDetailFragment.newInstance(selectedProductId);
+         getSupportFragmentManager().beginTransaction()
+                 .replace(R.id.details_container, fragment)
+                 .commit();
+
+        updateDetailsMenu(R.menu.details_menu);
+    }
+
+    private void updateDetailsMenu(@MenuRes int menu) {
+        if (detailsToolbar != null) {
+            detailsToolbar.getMenu().clear();
+            detailsToolbar.inflateMenu(menu);
+        }
+    }
+
+    private boolean inEditMode() {
+        return getSupportFragmentManager().findFragmentByTag(ProductEditFragment.TAG) != null;
     }
 }

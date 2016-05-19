@@ -1,8 +1,7 @@
 package com.mixailsednev.storeproject;
 
-import android.app.Activity;
-import android.support.design.widget.CollapsingToolbarLayout;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,9 +12,18 @@ import com.mixailsednev.storeproject.dummy.DummyContent;
 
 public class ProductDetailFragment extends Fragment {
 
-    public static final String ARG_ITEM_ID = "item_id";
+    public static final String TAG = "ProductEditFragment";
+    public static final String ARG_PRODUCT_ID = "product_id";
 
     private DummyContent.DummyItem mItem;
+
+    public static ProductDetailFragment newInstance(@NonNull String productId) {
+        ProductDetailFragment fragment =  new ProductDetailFragment();
+        Bundle arguments = new Bundle();
+        arguments.putString(ProductDetailFragment.ARG_PRODUCT_ID, productId);
+        fragment.setArguments(arguments);
+        return fragment;
+    }
 
     public ProductDetailFragment() {
     }
@@ -24,15 +32,9 @@ public class ProductDetailFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        if (getArguments().containsKey(ARG_ITEM_ID)) {
+        if (getArguments().containsKey(ARG_PRODUCT_ID)) {
 
-            mItem = DummyContent.ITEM_MAP.get(getArguments().getString(ARG_ITEM_ID));
-
-            Activity activity = this.getActivity();
-            CollapsingToolbarLayout appBarLayout = (CollapsingToolbarLayout) activity.findViewById(R.id.toolbar_layout);
-            if (appBarLayout != null) {
-                appBarLayout.setTitle(mItem.content);
-            }
+            mItem = DummyContent.ITEM_MAP.get(getArguments().getString(ARG_PRODUCT_ID));
         }
     }
 

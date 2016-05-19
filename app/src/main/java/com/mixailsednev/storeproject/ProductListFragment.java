@@ -1,5 +1,6 @@
 package com.mixailsednev.storeproject;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -44,11 +45,20 @@ public class ProductListFragment extends Fragment {
     }
 
     @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        if (getActivity() instanceof  ProductSelectedListener) {
-            productSelectedListener = (ProductSelectedListener)getActivity();
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if (context instanceof ProductSelectedListener) {
+            productSelectedListener = (ProductSelectedListener) context;
+        } else {
+            throw new RuntimeException(context.toString()
+                    + " must implement ProductSelectedListener");
         }
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        productSelectedListener = null;
     }
 
     private void setupRecyclerView(@NonNull RecyclerView recyclerView) {
