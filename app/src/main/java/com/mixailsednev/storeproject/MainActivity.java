@@ -111,17 +111,15 @@ public class MainActivity extends AppCompatActivity
     private void editProduct() {
         ProductEditFragment fragment = ProductEditFragment.newInstance(selectedProductId);
         getSupportFragmentManager().beginTransaction()
-                .replace(R.id.details_container, fragment)
+                .replace(R.id.details_container, fragment, ProductEditFragment.TAG)
+                .addToBackStack(null)
                 .commit();
 
         updateDetailsMenu(R.menu.edit_menu_menu);
     }
 
     private void editProductComplete() {
-         ProductDetailFragment fragment = ProductDetailFragment.newInstance(selectedProductId);
-         getSupportFragmentManager().beginTransaction()
-                 .replace(R.id.details_container, fragment)
-                 .commit();
+        getSupportFragmentManager().popBackStack();
 
         updateDetailsMenu(R.menu.details_menu);
     }
