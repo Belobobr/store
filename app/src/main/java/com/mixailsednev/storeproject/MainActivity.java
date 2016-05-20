@@ -3,7 +3,6 @@ package com.mixailsednev.storeproject;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
-import android.support.annotation.MenuRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
@@ -18,7 +17,7 @@ import android.view.View;
 public class MainActivity extends AppCompatActivity
     implements ProductListFragment.ProductSelectedListener, Toolbar.OnMenuItemClickListener
 {
-    private boolean mTwoPane;
+    private boolean twoPane;
     //TODO move to model view? / presenter
     @NonNull
     private String selectedProductId;
@@ -34,7 +33,7 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
 
         if (findViewById(R.id.details_container) != null) {
-            mTwoPane = true;
+            twoPane = true;
         }
 
         if (savedInstanceState == null) {
@@ -48,8 +47,12 @@ public class MainActivity extends AppCompatActivity
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                if (twoPane) {
+                    newProduct();
+                } else {
+                    Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                            .setAction("Action", null).show();
+                }
             }
         });
 
@@ -70,14 +73,14 @@ public class MainActivity extends AppCompatActivity
         if (detailsToolbar != null) {
             detailsToolbar.setOnMenuItemClickListener(this);
         }
-        updateDetailsMenu(inEditMode() ? R.menu.edit_menu_menu : R.menu.details_menu);
+        updateDetailsMenu();
     }
 
     @Override
     public boolean onMenuItemClick(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.edit:
-               editProduct();
+               editProduct(selectedProductId);
                 return true;
             case R.id.complete:
                 editProductComplete();
@@ -96,7 +99,7 @@ public class MainActivity extends AppCompatActivity
     public void productSelected(@NonNull String productId) {
         this.selectedProductId = productId;
 
-        if (mTwoPane) {
+        if (twoPane) {
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.details_container, ProductDetailFragment.newInstance(productId))
                     .commit();
@@ -108,26 +111,34 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
-    private void editProduct() {
-        ProductEditFragment fragment = ProductEditFragment.newInstance(selectedProductId);
+    private void newProduct() {
+        editProduct(null);
+    }
+
+    private void editProduct(@Nullable String productId) {
+        ProductEditFragment fragment = ProductEditFragment.newInstance(productId);
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.details_container, fragment, ProductEditFragment.TAG)
                 .addToBackStack(null)
                 .commit();
 
-        updateDetailsMenu(R.menu.edit_menu_menu);
+        updateDetailsMenu();
     }
 
     private void editProductComplete() {
         getSupportFragmentManager().popBackStack();
 
-        updateDetailsMenu(R.menu.details_menu);
+        updateDetailsMenu();
     }
 
-    private void updateDetailsMenu(@MenuRes int menu) {
+    private void updateDetailsMenu() {
+        getSupportFragmentManager().executePendingTransactions();
+
+        int menuRes = inEditMode() ? R.menu.edit_menu_menu : R.menu.details_menu;
+
         if (detailsToolbar != null) {
             detailsToolbar.getMenu().clear();
-            detailsToolbar.inflateMenu(menu);
+            detailsToolbar.inflateMenu(menuRes);
         }
     }
 
