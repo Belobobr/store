@@ -50,8 +50,8 @@ public class MainActivity extends AppCompatActivity
                 if (twoPane) {
                     newProduct();
                 } else {
-                    Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                            .setAction("Action", null).show();
+                    Intent intent = new Intent(MainActivity.this, ProductDetailActivity.class);
+                    MainActivity.this.startActivity(intent);
                 }
             }
         });
