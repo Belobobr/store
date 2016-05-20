@@ -1,4 +1,4 @@
-package com.mixailsednev.storeproject;
+package com.mixailsednev.storeproject.view;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -7,7 +7,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.mixailsednev.storeproject.Views.ProductParamView;
+import com.mixailsednev.storeproject.R;
+import com.mixailsednev.storeproject.custom.ProductParamView;
 import com.mixailsednev.storeproject.dummy.DummyContent;
 
 public class ProductDetailFragment extends Fragment {
@@ -18,7 +19,7 @@ public class ProductDetailFragment extends Fragment {
     private DummyContent.DummyItem mItem;
 
     public static ProductDetailFragment newInstance(@NonNull String productId) {
-        ProductDetailFragment fragment =  new ProductDetailFragment();
+        ProductDetailFragment fragment = new ProductDetailFragment();
         Bundle arguments = new Bundle();
         arguments.putString(ProductDetailFragment.ARG_PRODUCT_ID, productId);
         fragment.setArguments(arguments);
@@ -43,7 +44,7 @@ public class ProductDetailFragment extends Fragment {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_product_detail, container, false);
 
-        ProductParamView productDetailsParam = (ProductParamView)rootView.findViewById(R.id.product_description);
+        ProductParamView productDetailsParam = (ProductParamView) rootView.findViewById(R.id.product_description);
 
         if (mItem != null) {
             productDetailsParam.setParamValue(mItem.details);

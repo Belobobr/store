@@ -1,4 +1,4 @@
-package com.mixailsednev.storeproject;
+package com.mixailsednev.storeproject.view;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.mixailsednev.storeproject.R;
 import com.mixailsednev.storeproject.dummy.DummyContent;
 
 import java.util.List;

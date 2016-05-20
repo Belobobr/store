@@ -1,4 +1,4 @@
-package com.mixailsednev.storeproject.Views;
+package com.mixailsednev.storeproject.custom;
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -15,8 +15,6 @@ import com.mixailsednev.storeproject.R;
 
 public class ProductParamView extends LinearLayout {
 
-    private ImageView iconImageView;
-    private TextView paramTextView;
     private TextView paramValueTextView;
 
     public ProductParamView(Context context) {
@@ -46,8 +44,8 @@ public class ProductParamView extends LinearLayout {
 
         View view = LayoutInflater.from(context).inflate(R.layout.item_product_details, this, true);
 
-        iconImageView = ((ImageView)view.findViewById(R.id.icon));
-        paramTextView = ((TextView)view.findViewById(R.id.param));
+        ImageView iconImageView = ((ImageView)view.findViewById(R.id.icon));
+        TextView paramTextView = ((TextView)view.findViewById(R.id.param));
         paramValueTextView = ((TextView)view.findViewById(R.id.param_value));
 
         iconImageView.setImageDrawable(icon);

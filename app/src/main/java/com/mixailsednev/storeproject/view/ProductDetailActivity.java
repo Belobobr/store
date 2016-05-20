@@ -1,15 +1,15 @@
-package com.mixailsednev.storeproject;
+package com.mixailsednev.storeproject.view;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.MenuRes;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
+
+import com.mixailsednev.storeproject.R;
 
 public class ProductDetailActivity extends AppCompatActivity
         implements Toolbar.OnMenuItemClickListener {
@@ -22,7 +22,7 @@ public class ProductDetailActivity extends AppCompatActivity
         setContentView(R.layout.activity_product_detail);
 
         if (savedInstanceState == null) {
-            if (getProductId() == null ) {
+            if (getProductId() == null) {
                 getSupportFragmentManager().beginTransaction()
                         .add(R.id.details_container, ProductEditFragment.newInstance(null), ProductEditFragment.TAG)
                         .commit();
@@ -51,7 +51,6 @@ public class ProductDetailActivity extends AppCompatActivity
 
         updateDetailsMenu();
     }
-
 
 
     @Override

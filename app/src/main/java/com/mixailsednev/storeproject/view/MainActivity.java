@@ -1,4 +1,4 @@
-package com.mixailsednev.storeproject;
+package com.mixailsednev.storeproject.view;
 
 import android.content.Intent;
 import android.content.res.Configuration;
@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
@@ -14,9 +13,10 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.mixailsednev.storeproject.R;
+
 public class MainActivity extends AppCompatActivity
-    implements ProductListFragment.ProductSelectedListener, Toolbar.OnMenuItemClickListener
-{
+        implements ProductListFragment.ProductSelectedListener, Toolbar.OnMenuItemClickListener {
     private boolean twoPane;
     //TODO move to model view? / presenter
     @NonNull
@@ -80,7 +80,7 @@ public class MainActivity extends AppCompatActivity
     public boolean onMenuItemClick(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.edit:
-               editProduct(selectedProductId);
+                editProduct(selectedProductId);
                 return true;
             case R.id.complete:
                 editProductComplete();
