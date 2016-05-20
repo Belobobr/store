@@ -27,6 +27,14 @@
           android:name="android.support.PARENT_ACTIVITY"
           android:value=".view.MainActivity"/>
     </activity>
+
+
+    <provider
+        android:name=".model.content_provider.StoreContentProvider"
+        android:authorities="com.mixailsednev.storeproject"
+        android:enabled="true"
+        android:exported="false">
+    </provider>
   </application>
 
 </manifest>

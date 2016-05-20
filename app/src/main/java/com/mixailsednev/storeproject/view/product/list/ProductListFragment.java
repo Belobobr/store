@@ -1,4 +1,4 @@
-package com.mixailsednev.storeproject.view;
+package com.mixailsednev.storeproject.view.product.list;
 
 import android.content.Context;
 import android.os.Bundle;

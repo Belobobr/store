@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingLeft="@dimen/horizontal_content_margin"
-    tools:context=".view.ProductEditFragment"
+    tools:context=".view.product.ProductEditFragment"
 >
 
   <android.support.design.widget.TextInputLayout

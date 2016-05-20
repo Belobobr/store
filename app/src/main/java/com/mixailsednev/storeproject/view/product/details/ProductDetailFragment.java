@@ -1,4 +1,4 @@
-package com.mixailsednev.storeproject.view;
+package com.mixailsednev.storeproject.view.product.details;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;

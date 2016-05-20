@@ -1,4 +1,4 @@
-package com.mixailsednev.storeproject.view;
+package com.mixailsednev.storeproject.view.product;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.mixailsednev.storeproject.R;
+import com.mixailsednev.storeproject.view.product.details.ProductDetailFragment;
 
 public class ProductEditFragment extends Fragment {
 
