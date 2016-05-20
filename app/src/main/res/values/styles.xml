@@ -6,7 +6,6 @@
     <item name="colorPrimary">@color/colorPrimary</item>
     <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
     <item name="colorAccent">@color/colorAccent</item>
-    <item name="colorControlNormal">#FFFFFF</item>
   </style>
   <style name="AppTheme.NoActionBar">
     <item name="windowActionBar">false</item>
@@ -14,5 +13,23 @@
   </style>
   <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
   <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"/>
+
+  <style name="TextAppearance"/>
+
+  <style name="TextAppearance.ListItem"/>
+
+  <style name="TextAppearance.ListItem.MainText">
+    <item name="android:textSize">16sp</item>
+    <item name="android:textColor">@color/black_87</item>
+  </style>
+
+  <style name="TextAppearance.ListItem.SecondaryText">
+    <item name="android:textSize">14sp</item>
+    <item name="android:textColor">@color/black_54</item>
+  </style>
+
+  <style name="TextInputTheme" parent="AppTheme">
+    <item name="colorControlNormal">#FF0000</item>
+  </style>
 
 </resources>

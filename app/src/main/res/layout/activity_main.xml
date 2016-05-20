@@ -13,12 +13,12 @@
   >
 
     <include
-        layout="@layout/main_toolbar"
+        layout="@layout/toolbar_main_activity"
         android:id="@+id/app_bar"
     />
 
     <include
-        layout="@layout/main_activity_content"
+        layout="@layout/content_main_activity"
         android:layout_marginTop="?attr/actionBarSize"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -29,7 +29,7 @@
   </android.support.design.widget.CoordinatorLayout>
 
   <FrameLayout
-      android:layout_width="240dp"
+      android:layout_width="320dp"
       android:layout_height="match_parent"
       android:layout_gravity="start"
       android:background="@color/colorPrimary"

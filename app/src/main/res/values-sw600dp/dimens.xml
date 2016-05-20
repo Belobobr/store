@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <dimen name="horizontal_content_margin">24dp</dimen>
+  <dimen name="item_margin">104dp</dimen>
+  <dimen name="one_line_list_item">64dp</dimen>
+</resources>

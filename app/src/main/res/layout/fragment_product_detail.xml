@@ -1,0 +1,64 @@
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+>
+  <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:orientation="vertical"
+  >
+
+    <com.mixailsednev.storeproject.Views.FixedAspectRatioFrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        app:aspectRatioWidth="16"
+        app:aspectRatioHeight="9"
+    >
+
+      <ImageView
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          android:src="@drawable/details_image"
+          android:scaleType="centerCrop"
+      />
+
+    </com.mixailsednev.storeproject.Views.FixedAspectRatioFrameLayout>
+
+    <com.mixailsednev.storeproject.Views.ProductParamView
+        android:id="@+id/product_name"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/two_line_list_item"
+        android:layout_marginTop="@dimen/content_margin"
+        android:layout_marginBottom="@dimen/content_margin"
+        android:gravity="center_vertical"
+        app:product_icon="@drawable/ic_filter_list_black_24px"
+        app:product_param="@string/name"
+    />
+
+    <com.mixailsednev.storeproject.Views.ProductParamView
+        android:id="@+id/product_cost"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/two_line_list_item"
+        android:layout_marginTop="@dimen/content_margin"
+        android:layout_marginBottom="@dimen/content_margin"
+        android:gravity="center_vertical"
+        app:product_icon="@drawable/ic_gesture_black_24px"
+        app:product_param="@string/cost"
+    />
+
+    <com.mixailsednev.storeproject.Views.ProductParamView
+        android:id="@+id/product_description"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/two_line_list_item_content_margin"
+        android:layout_marginBottom="@dimen/two_line_list_item_content_margin"
+        app:product_icon="@drawable/ic_description_black_24px"
+        app:product_param="@string/description"
+    />
+
+  </LinearLayout>
+</ScrollView>
+

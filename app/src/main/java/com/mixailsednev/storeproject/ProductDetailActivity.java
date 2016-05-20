@@ -34,7 +34,12 @@ public class ProductDetailActivity extends AppCompatActivity
         detailsToolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                NavUtils.navigateUpTo(ProductDetailActivity.this, new Intent(ProductDetailActivity.this, MainActivity.class));
+                if (getSupportFragmentManager().getBackStackEntryCount() > 0) {
+                    getSupportFragmentManager().popBackStack();
+                    updateDetailsMenu(R.menu.details_menu);
+                } else {
+                    NavUtils.navigateUpTo(ProductDetailActivity.this, new Intent(ProductDetailActivity.this, MainActivity.class));
+                }
             }
         });
         updateDetailsMenu(inEditMode() ? R.menu.edit_menu_menu : R.menu.details_menu);
@@ -62,16 +67,14 @@ public class ProductDetailActivity extends AppCompatActivity
         ProductEditFragment fragment = ProductEditFragment.newInstance(getProductId());
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.details_container, fragment, ProductEditFragment.TAG)
+                .addToBackStack(ProductEditFragment.TAG)
                 .commit();
 
         updateDetailsMenu(R.menu.edit_menu_menu);
     }
 
     private void editProductComplete() {
-        ProductDetailFragment fragment = ProductDetailFragment.newInstance(getProductId());
-        getSupportFragmentManager().beginTransaction()
-                .replace(R.id.details_container, fragment)
-                .commit();
+        getSupportFragmentManager().popBackStack();
 
         updateDetailsMenu(R.menu.details_menu);
     }

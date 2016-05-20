@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="FixedAspectRatioFrameLayout">
+        <attr name="aspectRatioWidth" format="integer" />
+        <attr name="aspectRatioHeight" format="integer" />
+    </declare-styleable>
+
+    <declare-styleable name="ProductParamView">
+        <attr name="product_icon" format="integer"/>
+        <attr name="product_param" format="string"/>
+    </declare-styleable>
+</resources>

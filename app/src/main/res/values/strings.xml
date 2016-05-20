@@ -7,6 +7,9 @@
   <string name="open_navigation_drawer">Open menu</string>
   <string name="close_navigation_drawer">Close menu</string>
   <string name="products">Products</string>
+  <string name="name">Name</string>
+  <string name="cost">Cost</string>
+  <string name="description">Description</string>
 
   <!-- TODO: Remove or change this placeholder text -->
   <string name="hello_blank_fragment">Hello blank fragment</string>

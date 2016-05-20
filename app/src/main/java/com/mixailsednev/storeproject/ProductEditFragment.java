@@ -2,7 +2,11 @@ package com.mixailsednev.storeproject;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 public class ProductEditFragment extends Fragment {
 
@@ -12,7 +16,7 @@ public class ProductEditFragment extends Fragment {
     public ProductEditFragment() {
     }
 
-    public static ProductEditFragment newInstance(@NonNull String productId) {
+    public static ProductEditFragment newInstance(@Nullable String productId) {
         ProductEditFragment fragment =  new ProductEditFragment();
         Bundle arguments = new Bundle();
         arguments.putString(ProductDetailFragment.ARG_PRODUCT_ID, productId);
@@ -20,7 +24,7 @@ public class ProductEditFragment extends Fragment {
         return fragment;
     }
 
-    @NonNull
+    @Nullable
     private String productId;
 
     @Override
@@ -28,12 +32,15 @@ public class ProductEditFragment extends Fragment {
         super.onCreate(savedInstanceState);
 
         if (getArguments().containsKey(ARG_PRODUCT_ID)) {
-            productId =  getArguments().getString(ARG_PRODUCT_ID, "");
+            productId =  getArguments().getString(ARG_PRODUCT_ID);
         }
     }
 
+    @Nullable
     @Override
-    public void onDetach() {
-        super.onDetach();
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        View rootView = inflater.inflate(R.layout.fragment_product_edit, container, false);
+
+        return rootView;
     }
 }

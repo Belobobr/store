@@ -6,13 +6,13 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
+import com.mixailsednev.storeproject.Views.ProductParamView;
 import com.mixailsednev.storeproject.dummy.DummyContent;
 
 public class ProductDetailFragment extends Fragment {
 
-    public static final String TAG = "ProductEditFragment";
+    public static final String TAG = "ProductDetailFragment";
     public static final String ARG_PRODUCT_ID = "product_id";
 
     private DummyContent.DummyItem mItem;
@@ -41,12 +41,16 @@ public class ProductDetailFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.product_detail, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_product_detail, container, false);
+
+        ProductParamView productDetailsParam = (ProductParamView)rootView.findViewById(R.id.product_description);
 
         if (mItem != null) {
-            ((TextView) rootView.findViewById(R.id.product_detail)).setText(mItem.details);
+            productDetailsParam.setParamValue(mItem.details);
         }
 
         return rootView;
     }
+
+
 }
