@@ -1,4 +1,4 @@
-package com.mixailsednev.storeproject.custom;
+package com.mixailsednev.storeproject.view.custom;
 
 import android.content.Context;
 import android.content.res.TypedArray;

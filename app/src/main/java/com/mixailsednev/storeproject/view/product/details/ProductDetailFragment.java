@@ -8,7 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.mixailsednev.storeproject.R;
-import com.mixailsednev.storeproject.custom.ProductParamView;
+import com.mixailsednev.storeproject.view.custom.ProductParamView;
 
 public class ProductDetailFragment extends Fragment {
 

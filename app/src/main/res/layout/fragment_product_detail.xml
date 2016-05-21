@@ -10,7 +10,7 @@
       android:orientation="vertical"
   >
 
-    <com.mixailsednev.storeproject.custom.FixedAspectRatioFrameLayout
+    <com.mixailsednev.storeproject.view.custom.FixedAspectRatioFrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
@@ -25,9 +25,9 @@
           android:scaleType="centerCrop"
       />
 
-    </com.mixailsednev.storeproject.custom.FixedAspectRatioFrameLayout>
+    </com.mixailsednev.storeproject.view.custom.FixedAspectRatioFrameLayout>
 
-    <com.mixailsednev.storeproject.custom.ProductParamView
+    <com.mixailsednev.storeproject.view.custom.ProductParamView
         android:id="@+id/name"
         android:layout_width="match_parent"
         android:layout_height="@dimen/two_line_list_item"
@@ -38,7 +38,7 @@
         app:product_param="@string/name"
     />
 
-    <com.mixailsednev.storeproject.custom.ProductParamView
+    <com.mixailsednev.storeproject.view.custom.ProductParamView
         android:id="@+id/product_cost"
         android:layout_width="match_parent"
         android:layout_height="@dimen/two_line_list_item"
@@ -49,7 +49,7 @@
         app:product_param="@string/cost"
     />
 
-    <com.mixailsednev.storeproject.custom.ProductParamView
+    <com.mixailsednev.storeproject.view.custom.ProductParamView
         android:id="@+id/product_description"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
