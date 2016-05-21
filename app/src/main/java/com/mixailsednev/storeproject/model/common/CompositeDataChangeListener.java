@@ -23,7 +23,7 @@ public class CompositeDataChangeListener {
         }
     }
 
-    public void unsubscribe() {
+    public void unSubscribe() {
         for (BaseStore store : dataChangeListeners.keySet()) {
             store.removeListener(dataChangeListeners.get(store));
         }

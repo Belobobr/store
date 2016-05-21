@@ -1,5 +1,7 @@
 package com.mixailsednev.storeproject.model.product;
 
+import android.support.annotation.NonNull;
+
 public class Product {
 
     private Long id;
@@ -12,6 +14,12 @@ public class Product {
         this.name = name;
         this.cost = cost;
         this.description = description;
+    }
+
+    public void update(@NonNull Product product) {
+        name = product.getName();
+        cost = product.getCost();
+        description = product.getDescription();
     }
 
     public Long getId() {

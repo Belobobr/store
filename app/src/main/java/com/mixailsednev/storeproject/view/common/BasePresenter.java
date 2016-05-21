@@ -1,6 +1,7 @@
 package com.mixailsednev.storeproject.view.common;
 
 import android.support.annotation.NonNull;
+
 import com.mixailsednev.storeproject.model.common.CompositeDataChangeListener;
 
 
@@ -30,6 +31,6 @@ public class BasePresenter<View> {
     }
 
     public void unSubscribeFromDataStore() {
-        compositeDataChangeListener.unsubscribe();
+        compositeDataChangeListener.unSubscribe();
     }
 }

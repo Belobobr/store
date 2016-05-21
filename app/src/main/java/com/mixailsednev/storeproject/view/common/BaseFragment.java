@@ -25,7 +25,7 @@ public abstract class BaseFragment<Presenter extends BasePresenter> extends Frag
     @Override
     public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
         super.onViewStateRestored(savedInstanceState);
-        createPresenter().subscribeToDataStore();
+        getPresenter().subscribeToDataStore();
 
         if (savedInstanceState == null || !savedInstanceState.getBoolean(ARG_RESTORED)) {
             onNewViewStateInstance();
@@ -35,7 +35,7 @@ public abstract class BaseFragment<Presenter extends BasePresenter> extends Frag
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        createPresenter().unSubscribeFromDataStore();
+        getPresenter().unSubscribeFromDataStore();
 
         outState.putBoolean(ARG_RESTORED, true);
     }
