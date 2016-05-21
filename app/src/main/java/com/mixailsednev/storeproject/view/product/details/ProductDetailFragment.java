@@ -9,19 +9,19 @@ import android.view.ViewGroup;
 
 import com.mixailsednev.storeproject.R;
 import com.mixailsednev.storeproject.custom.ProductParamView;
-import com.mixailsednev.storeproject.dummy.DummyContent;
 
 public class ProductDetailFragment extends Fragment {
 
     public static final String TAG = "ProductDetailFragment";
     public static final String ARG_PRODUCT_ID = "product_id";
 
-    private DummyContent.DummyItem mItem;
+    @NonNull
+    private Long productId;
 
-    public static ProductDetailFragment newInstance(@NonNull String productId) {
+    public static ProductDetailFragment newInstance(@NonNull Long productId) {
         ProductDetailFragment fragment = new ProductDetailFragment();
         Bundle arguments = new Bundle();
-        arguments.putString(ProductDetailFragment.ARG_PRODUCT_ID, productId);
+        arguments.putLong(ProductDetailFragment.ARG_PRODUCT_ID, productId);
         fragment.setArguments(arguments);
         return fragment;
     }
@@ -35,7 +35,7 @@ public class ProductDetailFragment extends Fragment {
 
         if (getArguments().containsKey(ARG_PRODUCT_ID)) {
 
-            mItem = DummyContent.ITEM_MAP.get(getArguments().getString(ARG_PRODUCT_ID));
+            productId = getArguments().getLong(ARG_PRODUCT_ID);
         }
     }
 
@@ -46,9 +46,9 @@ public class ProductDetailFragment extends Fragment {
 
         ProductParamView productDetailsParam = (ProductParamView) rootView.findViewById(R.id.product_description);
 
-        if (mItem != null) {
-            productDetailsParam.setParamValue(mItem.details);
-        }
+
+        productDetailsParam.setParamValue(productId.toString());
+
 
         return rootView;
     }

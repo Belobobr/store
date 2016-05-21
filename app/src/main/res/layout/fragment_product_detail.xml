@@ -28,7 +28,7 @@
     </com.mixailsednev.storeproject.custom.FixedAspectRatioFrameLayout>
 
     <com.mixailsednev.storeproject.custom.ProductParamView
-        android:id="@+id/product_name"
+        android:id="@+id/name"
         android:layout_width="match_parent"
         android:layout_height="@dimen/two_line_list_item"
         android:layout_marginTop="@dimen/content_margin"

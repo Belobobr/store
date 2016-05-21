@@ -69,9 +69,9 @@ public class ProductDetailActivity extends AppCompatActivity
     }
 
     @Nullable
-    private String getProductId() {
+    private Long getProductId() {
         return getIntent().getExtras() == null ? null
-                : getIntent().getExtras().getString(ProductDetailFragment.ARG_PRODUCT_ID);
+                : getIntent().getExtras().getLong(ProductDetailFragment.ARG_PRODUCT_ID);
     }
 
     private void editProduct() {

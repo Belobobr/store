@@ -18,10 +18,12 @@ public class ProductEditFragment extends Fragment {
     public ProductEditFragment() {
     }
 
-    public static ProductEditFragment newInstance(@Nullable String productId) {
+    public static ProductEditFragment newInstance(@Nullable Long productId) {
         ProductEditFragment fragment = new ProductEditFragment();
         Bundle arguments = new Bundle();
-        arguments.putString(ProductDetailFragment.ARG_PRODUCT_ID, productId);
+        if (productId != null) {
+            arguments.putLong(ProductDetailFragment.ARG_PRODUCT_ID, productId);
+        }
         fragment.setArguments(arguments);
         return fragment;
     }

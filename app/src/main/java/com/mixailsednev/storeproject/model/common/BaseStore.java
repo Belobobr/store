@@ -1,4 +1,4 @@
-package com.mixailsednev.storeproject.model;
+package com.mixailsednev.storeproject.model.common;
 
 import java.util.ArrayList;
 

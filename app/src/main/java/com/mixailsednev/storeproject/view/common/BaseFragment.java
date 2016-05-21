@@ -18,6 +18,10 @@ public abstract class BaseFragment<Presenter extends BasePresenter> extends Frag
 
     public abstract Presenter createPresenter();
 
+    public Presenter getPresenter() {
+        return presenter;
+    }
+
     @Override
     public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
         super.onViewStateRestored(savedInstanceState);

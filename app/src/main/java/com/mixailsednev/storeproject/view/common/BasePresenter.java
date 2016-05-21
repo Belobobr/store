@@ -1,19 +1,21 @@
 package com.mixailsednev.storeproject.view.common;
 
 import android.support.annotation.NonNull;
-import com.mixailsednev.storeproject.model.CompositeDataChangeListener;
+import com.mixailsednev.storeproject.model.common.CompositeDataChangeListener;
 
 
-public abstract class BasePresenter<View> {
+public class BasePresenter<View> {
 
+    @NonNull
     private View view;
     private CompositeDataChangeListener compositeDataChangeListener;
 
-    public BasePresenter(View view) {
+    public BasePresenter(@NonNull View view) {
         compositeDataChangeListener = new CompositeDataChangeListener();
         this.view = view;
     }
 
+    @NonNull
     public View getView() {
         return view;
     }
