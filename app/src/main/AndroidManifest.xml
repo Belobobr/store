@@ -3,11 +3,13 @@
           xmlns:android="http://schemas.android.com/apk/res/android">
 
   <application
+      android:name=".ProductStoreApplication"
       android:allowBackup="true"
       android:icon="@mipmap/ic_launcher"
       android:label="@string/app_name"
       android:supportsRtl="true"
-      android:theme="@style/AppTheme">
+      android:theme="@style/AppTheme"
+  >
     <activity
         android:name=".view.MainActivity"
         android:label="@string/app_name"
@@ -30,7 +32,7 @@
 
 
     <provider
-        android:name=".model.content_provider.StoreContentProvider"
+        android:name=".model.content_provider.ProductStoreContentProvider"
         android:authorities="com.mixailsednev.storeproject"
         android:enabled="true"
         android:exported="false">

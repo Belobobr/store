@@ -4,14 +4,11 @@ import android.support.annotation.NonNull;
 
 import com.mixailsednev.storeproject.model.common.CompositeDataChangeListener;
 import com.mixailsednev.storeproject.model.common.DataChangeListener;
-import com.mixailsednev.storeproject.model.product.Product;
+import com.mixailsednev.storeproject.model.product.LoadProductsAction;
 import com.mixailsednev.storeproject.model.product.ProductState;
 import com.mixailsednev.storeproject.model.product.ProductStore;
 import com.mixailsednev.storeproject.view.common.BasePresenter;
 import com.mixailsednev.storeproject.view.product.list.ProductListContract.ProductListView;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class ProductListPresenter extends BasePresenter<ProductListView>
         implements ProductListContract.ActionsListener {
@@ -19,9 +16,15 @@ public class ProductListPresenter extends BasePresenter<ProductListView>
     @NonNull
     ProductStore productStore;
 
-    public ProductListPresenter(@NonNull ProductListView productListView, @NonNull ProductStore productStore) {
+    @NonNull
+    LoadProductsAction loadProductsAction;
+
+    public ProductListPresenter(@NonNull ProductListView productListView,
+                                @NonNull ProductStore productStore,
+                                @NonNull LoadProductsAction loadProductsAction) {
         super(productListView);
         this.productStore = productStore;
+        this.loadProductsAction = loadProductsAction;
     }
 
     @Override
@@ -37,13 +40,7 @@ public class ProductListPresenter extends BasePresenter<ProductListView>
 
     @Override
     public void loadProducts() {
-        List<Product> products  = new ArrayList<>();
-        products.add(new Product(1L, "1", "1", "1"));
-        products.add(new Product(1L, "1", "1", "1"));
-        products.add(new Product(1L, "1", "1", "1"));
-        products.add(new Product(1L, "1", "1", "1"));
-        products.add(new Product(1L, "1", "1", "1"));
 
-        productStore.setProducts(products);
+        loadProductsAction.run();
     }
 }

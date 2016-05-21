@@ -14,8 +14,8 @@ import android.text.TextUtils;
 import android.util.Log;
 
 //TODO просмотреть код =)
-public class StoreContentProvider extends ContentProvider {
-    final String TAG = "StoreContentProvider";
+public class ProductStoreContentProvider extends ContentProvider {
+    final String TAG = "PStoreContentProvider";
 
     // // Константы для БД
     // БД
@@ -33,8 +33,8 @@ public class StoreContentProvider extends ContentProvider {
     private static final UriMatcher uriMatcher;
     static {
         uriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
-        uriMatcher.addURI(StoreContentProviderContract.AUTHORITY, StoreContentProviderContract.PRODUCT_PATH, URI_PRODUCTS);
-        uriMatcher.addURI(StoreContentProviderContract.AUTHORITY, StoreContentProviderContract.PRODUCT_PATH + "/#", URI_PRODUCT_ID);
+        uriMatcher.addURI(ProductStoreContentProviderContract.AUTHORITY, ProductStoreContentProviderContract.PRODUCT_PATH, URI_PRODUCTS);
+        uriMatcher.addURI(ProductStoreContentProviderContract.AUTHORITY, ProductStoreContentProviderContract.PRODUCT_PATH + "/#", URI_PRODUCT_ID);
     }
 
     DBHelper dbHelper;
@@ -56,7 +56,7 @@ public class StoreContentProvider extends ContentProvider {
                 Log.d(TAG, "URI_PRODUCTS");
                 // если сортировка не указана, ставим свою - по имени
                 if (TextUtils.isEmpty(sortOrder)) {
-                    sortOrder = StoreContentProviderContract.PRODUCT_NAME + " ASC";
+                    sortOrder = ProductStoreContentProviderContract.PRODUCT_NAME + " ASC";
                 }
                 break;
             case URI_PRODUCT_ID: // Uri с ID
@@ -64,24 +64,24 @@ public class StoreContentProvider extends ContentProvider {
                 Log.d(TAG, "URI_PRODUCT_ID, " + id);
                 // добавляем ID к условию выборки
                 if (TextUtils.isEmpty(selection)) {
-                    selection = StoreContentProviderContract.PRODUCT_ID + " = " + id;
+                    selection = ProductStoreContentProviderContract.PRODUCT_ID + " = " + id;
                 } else {
-                    selection = selection + " AND " + StoreContentProviderContract.PRODUCT_ID + " = " + id;
+                    selection = selection + " AND " + ProductStoreContentProviderContract.PRODUCT_ID + " = " + id;
                 }
                 break;
             default:
                 throw new IllegalArgumentException("Wrong URI: " + uri);
         }
         db = dbHelper.getWritableDatabase();
-        Cursor cursor = db.query(StoreContentProviderContract.PRODUCTS_TABLE, projection, selection,
+        Cursor cursor = db.query(ProductStoreContentProviderContract.PRODUCTS_TABLE, projection, selection,
                 selectionArgs, null, null, sortOrder);
         // просим ContentResolver уведомлять этот курсор
-        // об изменениях данных в CASE_CONTENT_URI
+        // об изменениях данных в PRODUCT_CONTENT_URI
         if (getContext() == null) {
             Log.e(TAG, "Context is null");
         } else {
             cursor.setNotificationUri(getContext().getContentResolver(),
-                    StoreContentProviderContract. CASE_CONTENT_URI);
+                    ProductStoreContentProviderContract.PRODUCT_CONTENT_URI);
         }
         return cursor;
     }
@@ -92,8 +92,8 @@ public class StoreContentProvider extends ContentProvider {
             throw new IllegalArgumentException("Wrong URI: " + uri);
 
         db = dbHelper.getWritableDatabase();
-        long rowID = db.insert(StoreContentProviderContract.PRODUCTS_TABLE, null, values);
-        Uri resultUri = ContentUris.withAppendedId(StoreContentProviderContract.CASE_CONTENT_URI, rowID);
+        long rowID = db.insert(ProductStoreContentProviderContract.PRODUCTS_TABLE, null, values);
+        Uri resultUri = ContentUris.withAppendedId(ProductStoreContentProviderContract.PRODUCT_CONTENT_URI, rowID);
         // уведомляем ContentResolver, что данные по адресу resultUri изменились
         if (getContext() == null) {
             Log.e(TAG, "Context is null");
@@ -111,7 +111,7 @@ public class StoreContentProvider extends ContentProvider {
 
         switch (uriType) {
             case URI_PRODUCTS:
-                table = StoreContentProviderContract.PRODUCTS_TABLE;
+                table = ProductStoreContentProviderContract.PRODUCTS_TABLE;
                 break;
             default:
                 return 0;
@@ -150,16 +150,16 @@ public class StoreContentProvider extends ContentProvider {
                 String id = uri.getLastPathSegment();
                 Log.d(TAG, "URI_PRODUCT_ID, " + id);
                 if (TextUtils.isEmpty(selection)) {
-                    selection = StoreContentProviderContract.PRODUCT_ID + " = " + id;
+                    selection = ProductStoreContentProviderContract.PRODUCT_ID + " = " + id;
                 } else {
-                    selection = selection + " AND " + StoreContentProviderContract.PRODUCT_ID + " = " + id;
+                    selection = selection + " AND " + ProductStoreContentProviderContract.PRODUCT_ID + " = " + id;
                 }
                 break;
             default:
                 throw new IllegalArgumentException("Wrong URI: " + uri);
         }
         db = dbHelper.getWritableDatabase();
-        int cnt = db.delete(StoreContentProviderContract.PRODUCTS_TABLE, selection, selectionArgs);
+        int cnt = db.delete(ProductStoreContentProviderContract.PRODUCTS_TABLE, selection, selectionArgs);
         if (getContext() == null) {
             Log.e(TAG, "Context is null");
         } else {
@@ -180,16 +180,16 @@ public class StoreContentProvider extends ContentProvider {
                 String id = uri.getLastPathSegment();
                 Log.d(TAG, "URI_PRODUCT_ID, " + id);
                 if (TextUtils.isEmpty(selection)) {
-                    selection = StoreContentProviderContract.PRODUCT_ID + " = " + id;
+                    selection = ProductStoreContentProviderContract.PRODUCT_ID + " = " + id;
                 } else {
-                    selection = selection + " AND " + StoreContentProviderContract.PRODUCT_ID + " = " + id;
+                    selection = selection + " AND " + ProductStoreContentProviderContract.PRODUCT_ID + " = " + id;
                 }
                 break;
             default:
                 throw new IllegalArgumentException("Wrong URI: " + uri);
         }
         db = dbHelper.getWritableDatabase();
-        int cnt = db.update(StoreContentProviderContract.PRODUCTS_TABLE, values, selection, selectionArgs);
+        int cnt = db.update(ProductStoreContentProviderContract.PRODUCTS_TABLE, values, selection, selectionArgs);
         if (getContext() == null) {
             Log.e(TAG, "Context is null");
         } else {
@@ -202,9 +202,9 @@ public class StoreContentProvider extends ContentProvider {
         Log.d(TAG, "getType, " + uri.toString());
         switch (uriMatcher.match(uri)) {
             case URI_PRODUCTS:
-                return StoreContentProviderContract.CASE_CONTENT_TYPE;
+                return ProductStoreContentProviderContract.PRODUCT_CONTENT_TYPE;
             case URI_PRODUCT_ID:
-                return StoreContentProviderContract.CASE_CONTENT_ITEM_TYPE;
+                return ProductStoreContentProviderContract.PRODUCT_CONTENT_ITEM_TYPE;
         }
         return null;
     }
@@ -216,15 +216,15 @@ public class StoreContentProvider extends ContentProvider {
         }
 
         public void onCreate(SQLiteDatabase db) {
-            db.execSQL(StoreContentProviderContract.DB_CREATE);
+            db.execSQL(ProductStoreContentProviderContract.DB_CREATE);
             final int initialItemCount = 10;
 
             ContentValues cv = new ContentValues();
             for (int i = 1; i <= initialItemCount; i++) {
-                cv.put(StoreContentProviderContract.PRODUCT_NAME, "Product name " + i);
-                cv.put(StoreContentProviderContract.PRODUCT_COST, "Product cost " + i);
-                cv.put(StoreContentProviderContract.PRODUCT_DESCRIPTION, "Product details" + i);
-                db.insert(StoreContentProviderContract.PRODUCTS_TABLE, null, cv);
+                cv.put(ProductStoreContentProviderContract.PRODUCT_NAME, "Product name " + i);
+                cv.put(ProductStoreContentProviderContract.PRODUCT_COST, "Product cost " + i);
+                cv.put(ProductStoreContentProviderContract.PRODUCT_DESCRIPTION, "Product description" + i);
+                db.insert(ProductStoreContentProviderContract.PRODUCTS_TABLE, null, cv);
             }
         }
 

@@ -33,7 +33,7 @@ public class ProductListFragment extends BaseFragment<ProductListPresenter> impl
 
     @Override
     public ProductListPresenter createPresenter() {
-        return new ProductListPresenter(this, Injection.provideProductStore());
+        return new ProductListPresenter(this, Injection.provideProductStore(), Injection.provideLoadProductsAction());
     }
 
     @Override

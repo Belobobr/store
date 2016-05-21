@@ -2,7 +2,7 @@ package com.mixailsednev.storeproject.model.content_provider;
 
 import android.net.Uri;
 
-public class StoreContentProviderContract {
+public class ProductStoreContentProviderContract {
     // // Uri
     // authority
     public static final String AUTHORITY = "com.mixailsednev.storeproject";
@@ -22,20 +22,20 @@ public class StoreContentProviderContract {
     static final String DB_CREATE = "create table " + PRODUCTS_TABLE + "("
             + PRODUCT_ID + " integer primary key autoincrement, "
             + PRODUCT_NAME + " text, "
-            + PRODUCT_COST + " text"
+            + PRODUCT_COST + " text, "
             + PRODUCT_DESCRIPTION + " text"
             + ");";
 
     // Общий Uri
-    public static final Uri CASE_CONTENT_URI = Uri.parse("content://"
+    public static final Uri PRODUCT_CONTENT_URI = Uri.parse("content://"
             + AUTHORITY + "/" + PRODUCT_PATH);
 
     // Типы данных
     // набор строк
-    static final String CASE_CONTENT_TYPE = "vnd.android.cursor.dir/vnd."
+    static final String PRODUCT_CONTENT_TYPE = "vnd.android.cursor.dir/vnd."
             + AUTHORITY + "." + PRODUCT_PATH;
 
     // одна строка
-    static final String CASE_CONTENT_ITEM_TYPE = "vnd.android.cursor.item/vnd."
+    static final String PRODUCT_CONTENT_ITEM_TYPE = "vnd.android.cursor.item/vnd."
             + AUTHORITY + "." + PRODUCT_PATH;
 }
