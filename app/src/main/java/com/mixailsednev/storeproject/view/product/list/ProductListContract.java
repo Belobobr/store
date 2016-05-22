@@ -9,7 +9,8 @@ import java.util.List;
 public class ProductListContract {
 
     public interface ProductListView {
-        void setProducts(@NonNull List<Product> cases);
+        void setProducts(@NonNull List<Product> products);
+
         void setLoading(boolean loading);
     }
 

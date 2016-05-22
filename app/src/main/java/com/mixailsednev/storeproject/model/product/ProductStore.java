@@ -3,6 +3,7 @@ package com.mixailsednev.storeproject.model.product;
 import android.content.ContentUris;
 import android.net.Uri;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.util.Log;
 
 import com.mixailsednev.storeproject.model.common.BaseStore;
@@ -14,6 +15,7 @@ public class ProductStore extends BaseStore {
 
     public static String TAG = ProductStore.class.getSimpleName();
 
+    @NonNull
     private List<Product> products;
     private boolean loading;
 
@@ -58,11 +60,22 @@ public class ProductStore extends BaseStore {
         notifyDataChanged(uri);
     }
 
+    @NonNull
     public List<Product> getProducts() {
         return products;
     }
 
     public boolean isLoading() {
         return loading;
+    }
+
+    @Nullable
+    public Product getProduct(@NonNull Long productId) {
+        for (Product product : products) {
+            if (product.getId().equals(productId)) {
+                return product;
+            }
+        }
+        return null;
     }
 }

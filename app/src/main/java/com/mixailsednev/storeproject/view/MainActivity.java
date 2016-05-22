@@ -11,11 +11,10 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
-import android.view.View;
 
 import com.mixailsednev.storeproject.R;
-import com.mixailsednev.storeproject.view.product.details.ProductDetailFragment;
 import com.mixailsednev.storeproject.view.product.ProductEditFragment;
+import com.mixailsednev.storeproject.view.product.details.ProductDetailFragment;
 import com.mixailsednev.storeproject.view.product.list.ProductListFragment;
 
 public class MainActivity extends AppCompatActivity
@@ -47,15 +46,12 @@ public class MainActivity extends AppCompatActivity
         }
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (twoPane) {
-                    newProduct();
-                } else {
-                    Intent intent = new Intent(MainActivity.this, ProductDetailActivity.class);
-                    MainActivity.this.startActivity(intent);
-                }
+        fab.setOnClickListener((view) -> {
+            if (twoPane) {
+                newProduct();
+            } else {
+                Intent intent = new Intent(MainActivity.this, ProductDetailActivity.class);
+                MainActivity.this.startActivity(intent);
             }
         });
 

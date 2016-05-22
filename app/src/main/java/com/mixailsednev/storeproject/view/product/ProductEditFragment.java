@@ -12,7 +12,7 @@ import com.mixailsednev.storeproject.view.product.details.ProductDetailFragment;
 
 public class ProductEditFragment extends Fragment {
 
-    public static final String TAG = "ProductEditFragment";
+    public static final String TAG = ProductEditFragment.class.getSimpleName();
     public static final String ARG_PRODUCT_ID = "product_id";
 
     public ProductEditFragment() {
@@ -24,6 +24,7 @@ public class ProductEditFragment extends Fragment {
         if (productId != null) {
             arguments.putLong(ProductDetailFragment.ARG_PRODUCT_ID, productId);
         }
+
         fragment.setArguments(arguments);
         return fragment;
     }

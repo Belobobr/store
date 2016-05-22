@@ -58,7 +58,7 @@ public class ProductRecyclerViewAdapter
         public ViewHolder(View view) {
             super(view);
             this.view = view;
-            nameTextView = (TextView) view.findViewById(R.id.name);
+            nameTextView = (TextView) view.findViewById(R.id.product_name);
             costTextView = (TextView) view.findViewById(R.id.cost);
         }
 

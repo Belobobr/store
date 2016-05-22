@@ -3,6 +3,7 @@ package com.mixailsednev.storeproject.view.common;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.view.View;
 
 public abstract class BaseFragment<Presenter extends BasePresenter> extends Fragment {
 
@@ -12,14 +13,18 @@ public abstract class BaseFragment<Presenter extends BasePresenter> extends Frag
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        presenter = createPresenter();
     }
 
     public abstract Presenter createPresenter();
 
     public Presenter getPresenter() {
         return presenter;
+    }
+
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        presenter = createPresenter();
     }
 
     @Override
