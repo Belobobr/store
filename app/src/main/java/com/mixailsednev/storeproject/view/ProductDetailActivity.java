@@ -7,7 +7,6 @@ import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
-import android.view.View;
 
 import com.mixailsednev.storeproject.R;
 import com.mixailsednev.storeproject.view.product.details.ProductDetailFragment;
@@ -39,15 +38,12 @@ public class ProductDetailActivity extends AppCompatActivity
         detailsToolbar.setTitle(getString(R.string.products));
         detailsToolbar.setNavigationIcon(R.drawable.back);
         detailsToolbar.setOnMenuItemClickListener(this);
-        detailsToolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (getSupportFragmentManager().getBackStackEntryCount() > 0) {
-                    getSupportFragmentManager().popBackStack();
-                    updateDetailsMenu();
-                } else {
-                    NavUtils.navigateUpTo(ProductDetailActivity.this, new Intent(ProductDetailActivity.this, MainActivity.class));
-                }
+        detailsToolbar.setNavigationOnClickListener((view) -> {
+            if (getSupportFragmentManager().getBackStackEntryCount() > 0) {
+                getSupportFragmentManager().popBackStack();
+                updateDetailsMenu();
+            } else {
+                NavUtils.navigateUpTo(ProductDetailActivity.this, new Intent(ProductDetailActivity.this, MainActivity.class));
             }
         });
 

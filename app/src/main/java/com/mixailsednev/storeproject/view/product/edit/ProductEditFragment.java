@@ -20,15 +20,17 @@ public class ProductEditFragment extends BaseFragment<ProductEditPresenter> impl
     public static final String TAG = ProductEditFragment.class.getSimpleName();
     public static final String ARG_PRODUCT_ID = "product_id";
 
-    public static ProductEditFragment newInstance(@NonNull Long productId) {
+    public static ProductEditFragment newInstance(@Nullable Long productId) {
         ProductEditFragment fragment = new ProductEditFragment();
         Bundle arguments = new Bundle();
-        arguments.putLong(ProductDetailFragment.ARG_PRODUCT_ID, productId);
+        if (productId != null) {
+            arguments.putLong(ProductDetailFragment.ARG_PRODUCT_ID, productId);
+        }
         fragment.setArguments(arguments);
         return fragment;
     }
 
-    @NonNull
+    @Nullable
     private Long productId;
     private EditText nameEditText;
     private EditText costEditText;

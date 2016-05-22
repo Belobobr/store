@@ -10,16 +10,16 @@
   <de.hdodenhof.circleimageview.CircleImageView
       android:layout_width="@dimen/avatar_size"
       android:layout_height="@dimen/avatar_size"
-      android:layout_marginLeft="@dimen/horizontal_content_margin"
       android:layout_centerVertical="true"
+      android:layout_marginLeft="@dimen/horizontal_content_margin"
       android:src="@drawable/afro"/>
 
   <TextView
       android:id="@+id/product_name"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:layout_marginLeft="@dimen/item_margin"
       android:layout_centerVertical="true"
+      android:layout_marginLeft="@dimen/item_margin"
       android:textAppearance="@style/TextAppearance.ListItem.MainText"
       tools:text="Item name"
   />
@@ -28,9 +28,9 @@
       android:id="@+id/product_cost"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:layout_marginRight="@dimen/horizontal_content_margin"
       android:layout_alignParentRight="true"
       android:layout_centerVertical="true"
+      android:layout_marginRight="@dimen/horizontal_content_margin"
       android:textAppearance="@style/TextAppearance.ListItem.SecondaryText"
       tools:text="Item name"
   />
