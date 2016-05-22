@@ -11,7 +11,7 @@ import android.view.View;
 
 import com.mixailsednev.storeproject.R;
 import com.mixailsednev.storeproject.view.product.details.ProductDetailFragment;
-import com.mixailsednev.storeproject.view.product.ProductEditFragment;
+import com.mixailsednev.storeproject.view.product.edit.ProductEditFragment;
 
 public class ProductDetailActivity extends AppCompatActivity
         implements Toolbar.OnMenuItemClickListener {

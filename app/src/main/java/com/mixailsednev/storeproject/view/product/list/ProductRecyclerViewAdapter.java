@@ -59,7 +59,7 @@ public class ProductRecyclerViewAdapter
             super(view);
             this.view = view;
             nameTextView = (TextView) view.findViewById(R.id.product_name);
-            costTextView = (TextView) view.findViewById(R.id.cost);
+            costTextView = (TextView) view.findViewById(R.id.product_cost);
         }
 
         @Override

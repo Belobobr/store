@@ -13,7 +13,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
 import com.mixailsednev.storeproject.R;
-import com.mixailsednev.storeproject.view.product.ProductEditFragment;
+import com.mixailsednev.storeproject.view.product.edit.ProductEditFragment;
 import com.mixailsednev.storeproject.view.product.details.ProductDetailFragment;
 import com.mixailsednev.storeproject.view.product.list.ProductListFragment;
 
