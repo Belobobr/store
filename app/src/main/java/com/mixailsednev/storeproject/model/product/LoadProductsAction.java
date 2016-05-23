@@ -28,7 +28,6 @@ public class LoadProductsAction extends Action<Void> {
 
         productDao.getProductsObservable()
                 .subscribeOn(Schedulers.io())
-                .delaySubscription(3, TimeUnit.SECONDS)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(products -> {
                     productStore.setLoading(false);

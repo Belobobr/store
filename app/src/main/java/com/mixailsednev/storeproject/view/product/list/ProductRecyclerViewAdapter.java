@@ -1,9 +1,15 @@
 package com.mixailsednev.storeproject.view.product.list;
 
+import android.support.annotation.NonNull;
+import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
+import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.mixailsednev.storeproject.R;
@@ -11,16 +17,22 @@ import com.mixailsednev.storeproject.model.product.Product;
 
 import java.util.List;
 
-public class ProductRecyclerViewAdapter
-        extends RecyclerView.Adapter<ProductRecyclerViewAdapter.ViewHolder> {
+public class ProductRecyclerViewAdapter extends RecyclerView.Adapter<ProductRecyclerViewAdapter.ViewHolder> {
 
-    private final List<Product> products;
-    private final ProductListFragment.ProductSelectedListener productSelectedListener;
+    public interface ProductRemovedListener {
+        void productRemoved(@NonNull Product product);
+    }
+
+    private List<Product> products;
+    private ProductListFragment.ProductSelectedListener productSelectedListener;
+    private ProductRemovedListener productRemovedListener;
 
     public ProductRecyclerViewAdapter(List<Product> products,
-                                      ProductListFragment.ProductSelectedListener productSelectedListener) {
+                                      ProductListFragment.ProductSelectedListener productSelectedListener,
+                                      ProductRemovedListener productRemovedListener) {
         this.products = products;
         this.productSelectedListener = productSelectedListener;
+        this.productRemovedListener = productRemovedListener;
     }
 
     @Override
@@ -34,7 +46,6 @@ public class ProductRecyclerViewAdapter
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.product = products.get(position);
         holder.nameTextView.setText(products.get(position).getName());
-        holder.costTextView.setText(products.get(position).getCost());
 
         holder.view.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -42,6 +53,31 @@ public class ProductRecyclerViewAdapter
                 productSelectedListener.productSelected(holder.product.getId());
             }
         });
+        holder.popupMenuImageView.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                final PopupMenu popupMenu = new PopupMenu(v.getContext(), v, Gravity.RIGHT);
+                final Menu menu = popupMenu.getMenu();
+
+                popupMenu.getMenuInflater().inflate(R.menu.menu_item_product, menu);
+                popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem item) {
+                        productRemovedListener.productRemoved(holder.product);
+                        return true;
+                    }
+                });
+
+                popupMenu.show();
+            }
+        });
+
+    }
+
+    public void setProducts(@NonNull List<Product> products) {
+        this.products = products;
+        notifyDataSetChanged();
     }
 
     @Override
@@ -52,19 +88,19 @@ public class ProductRecyclerViewAdapter
     public class ViewHolder extends RecyclerView.ViewHolder {
         public final View view;
         public final TextView nameTextView;
-        public final TextView costTextView;
+        public final ImageView popupMenuImageView;
         public Product product;
 
         public ViewHolder(View view) {
             super(view);
             this.view = view;
             nameTextView = (TextView) view.findViewById(R.id.product_name);
-            costTextView = (TextView) view.findViewById(R.id.product_cost);
+            popupMenuImageView = (ImageView) view.findViewById(R.id.product_popup_menu);
         }
 
         @Override
         public String toString() {
-            return super.toString() + " '" + costTextView.getText() + "'";
+            return super.toString() + " '";
         }
     }
 }

@@ -16,5 +16,7 @@ public class ProductListContract {
 
     public interface ActionsListener {
         void loadProducts();
+
+        void removeProduct(@NonNull Product product);
     }
 }

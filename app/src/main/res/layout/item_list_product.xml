@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="@dimen/one_line_list_item"
+    android:background="?android:attr/selectableItemBackground"
 >
 
 
@@ -24,14 +25,16 @@
       tools:text="Item name"
   />
 
-  <TextView
-      android:id="@+id/product_cost"
+  <ImageView
+      android:id="@+id/product_popup_menu"
       android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
+      android:layout_height="match_parent"
       android:layout_alignParentRight="true"
       android:layout_centerVertical="true"
-      android:layout_marginRight="@dimen/horizontal_content_margin"
-      android:textAppearance="@style/TextAppearance.ListItem.SecondaryText"
+      android:paddingRight="@dimen/horizontal_content_margin"
+      android:paddingLeft="40dp"
+      android:src="@drawable/ic_popup_menu"
+      tools:src="@drawable/ic_popup_menu"
       tools:text="Item name"
   />
 </RelativeLayout>

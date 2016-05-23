@@ -112,6 +112,23 @@ public class ProductDao {
         }
     }
 
+    public Observable<Integer> removeProductObservable(@NonNull Product product) {
+        return Observable.create(subscriber -> {
+            Observable.just(removeProduct(product)).subscribe(subscriber);
+        });
+    }
+
+    public Integer removeProduct(@NonNull Product removingProduct) {
+        if (removingProduct.getId() != null) {
+            Uri uri = ContentUris.withAppendedId(ProductStoreContentProviderContract.PRODUCT_CONTENT_URI, removingProduct.getId());
+            return ProductStoreApplication.getContext()
+                    .getContentResolver().delete(uri, null, null);
+        } else {
+            Log.e(TAG, "Trying to update product without productID");
+            return -1;
+        }
+    };
+
     public boolean saveProducts(@NonNull List<Product> products) {
         ArrayList<ContentValues> contentValues = new ArrayList<ContentValues>(products.size());
 

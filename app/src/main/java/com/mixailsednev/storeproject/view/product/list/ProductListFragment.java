@@ -15,9 +15,12 @@ import com.mixailsednev.storeproject.model.product.Product;
 import com.mixailsednev.storeproject.view.common.BaseFragment;
 import com.mixailsednev.storeproject.view.product.list.ProductListContract.ProductListView;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class ProductListFragment extends BaseFragment<ProductListPresenter> implements ProductListView {
+public class ProductListFragment extends BaseFragment<ProductListPresenter> implements ProductListView,
+        ProductRecyclerViewAdapter.ProductRemovedListener
+{
 
     public interface ProductSelectedListener {
         void productSelected(@NonNull Long productId);
@@ -30,10 +33,14 @@ public class ProductListFragment extends BaseFragment<ProductListPresenter> impl
     private ProductSelectedListener productSelectedListener;
     private View progressLayout;
     private RecyclerView recyclerView;
+    private ProductRecyclerViewAdapter productRecyclerViewAdapter;
 
     @Override
     public ProductListPresenter createPresenter() {
-        return new ProductListPresenter(this, Injection.provideProductStore(), Injection.provideLoadProductsAction());
+        return new ProductListPresenter(this,
+                Injection.provideProductStore(),
+                Injection.provideLoadProductsAction(),
+                Injection.provideRemoveProductAction());
     }
 
     @Override
@@ -48,6 +55,9 @@ public class ProductListFragment extends BaseFragment<ProductListPresenter> impl
 
         recyclerView = (RecyclerView) view.findViewById(R.id.product_list);
         progressLayout = view.findViewById(R.id.progress);
+
+        productRecyclerViewAdapter = new ProductRecyclerViewAdapter(new ArrayList<>(), productSelectedListener, this);
+        recyclerView.setAdapter(productRecyclerViewAdapter);
 
         return view;
     }
@@ -71,7 +81,7 @@ public class ProductListFragment extends BaseFragment<ProductListPresenter> impl
 
     @Override
     public void setProducts(@NonNull List<Product> products) {
-        recyclerView.setAdapter(new ProductRecyclerViewAdapter(products, productSelectedListener));
+        productRecyclerViewAdapter.setProducts(products);
     }
 
     @Override
@@ -82,5 +92,10 @@ public class ProductListFragment extends BaseFragment<ProductListPresenter> impl
     @Override
     public void onNewViewStateInstance() {
         getPresenter().loadProducts();
+    }
+
+    @Override
+    public void productRemoved(@NonNull Product product) {
+        getPresenter().removeProduct(product);
     }
 }
