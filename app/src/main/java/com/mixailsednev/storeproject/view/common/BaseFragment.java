@@ -7,7 +7,6 @@ import android.view.View;
 
 public abstract class BaseFragment<Presenter extends BasePresenter> extends Fragment {
 
-    private static String ARG_RESTORED = "RESTORED";
     protected Presenter presenter;
 
     @Override
@@ -30,19 +29,27 @@ public abstract class BaseFragment<Presenter extends BasePresenter> extends Frag
     @Override
     public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
         super.onViewStateRestored(savedInstanceState);
-        getPresenter().subscribeToDataStore();
 
-        if (savedInstanceState == null || !savedInstanceState.getBoolean(ARG_RESTORED)) {
+        if (savedInstanceState == null) {
             onNewViewStateInstance();
         }
     }
 
     @Override
+    public void onStart() {
+        super.onStart();
+        getPresenter().subscribeToDataStore();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        getPresenter().unSubscribeFromDataStore();
+    }
+
+    @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        getPresenter().unSubscribeFromDataStore();
-
-        outState.putBoolean(ARG_RESTORED, true);
     }
 
     /**
