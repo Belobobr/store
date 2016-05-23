@@ -125,8 +125,11 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void editProductComplete() {
-        getSupportFragmentManager().popBackStack();
+        if (getProductEditFragment() != null) {
+            getProductEditFragment().editProductComplete();
+        }
 
+        getSupportFragmentManager().popBackStack();
         updateDetailsMenu();
     }
 
@@ -143,5 +146,10 @@ public class MainActivity extends AppCompatActivity
 
     private boolean inEditMode() {
         return getSupportFragmentManager().findFragmentByTag(ProductEditFragment.TAG) != null;
+    }
+
+    @Nullable
+    private ProductEditFragment getProductEditFragment() {
+        return (ProductEditFragment)getSupportFragmentManager().findFragmentByTag(ProductEditFragment.TAG);
     }
 }

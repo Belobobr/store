@@ -9,27 +9,41 @@ import android.util.Log;
 import com.mixailsednev.storeproject.model.common.CompositeDataChangeListener;
 import com.mixailsednev.storeproject.model.common.DataChangeListener;
 import com.mixailsednev.storeproject.model.content_provider.ProductStoreContentProviderContract;
+import com.mixailsednev.storeproject.model.product.CreateProductAction;
 import com.mixailsednev.storeproject.model.product.Product;
 import com.mixailsednev.storeproject.model.product.ProductStore;
+import com.mixailsednev.storeproject.model.product.UpdateProductAction;
 import com.mixailsednev.storeproject.view.common.BasePresenter;
 import com.mixailsednev.storeproject.view.product.edit.ProductEditContract.ProductEditView;
+import com.mixailsednev.storeproject.view.product.edit.ProductEditContract.ActionsListener;
 
-public class ProductEditPresenter extends BasePresenter<ProductEditView> {
+public class ProductEditPresenter extends BasePresenter<ProductEditView>
+        implements ActionsListener {
 
     public static final String TAG = ProductEditPresenter.class.getSimpleName();
 
     @NonNull
     ProductStore productStore;
 
+    @NonNull
+    CreateProductAction createProductAction;
+
+    @NonNull
+    UpdateProductAction updateProductAction;
+
     @Nullable
     Long productId;
 
-    public ProductEditPresenter(@NonNull ProductEditView productEditView,
+    public ProductEditPresenter(@Nullable Long productId,
+                                @NonNull ProductEditView productEditView,
                                 @NonNull ProductStore productStore,
-                                @Nullable Long productId) {
+                                @NonNull UpdateProductAction updateProductAction,
+                                @NonNull CreateProductAction createProductAction) {
         super(productEditView);
         this.productStore = productStore;
         this.productId = productId;
+        this.createProductAction = createProductAction;
+        this.updateProductAction = updateProductAction;
     }
 
     @Override
@@ -50,6 +64,15 @@ public class ProductEditPresenter extends BasePresenter<ProductEditView> {
 
                 }
             });
+        }
+    }
+
+    @Override
+    public void saveProduct(@NonNull Product product) {
+        if (product.getId() == null) {
+            createProductAction.run(product);
+        } else {
+            updateProductAction.run(product);
         }
     }
 }

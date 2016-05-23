@@ -8,4 +8,8 @@ public class ProductEditContract {
     public interface ProductEditView {
         void setProduct(@NonNull Product product);
     }
+
+    public interface ActionsListener {
+        void saveProduct(@NonNull Product product);
+    }
 }

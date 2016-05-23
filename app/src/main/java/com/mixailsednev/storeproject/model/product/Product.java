@@ -1,15 +1,17 @@
 package com.mixailsednev.storeproject.model.product;
 
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 
 public class Product {
 
+    @Nullable
     private Long id;
     private String name;
     private String cost;
     private String description;
 
-    public Product(Long id, String name, String cost, String description) {
+    public Product(@Nullable Long id, String name, String cost, String description) {
         this.id = id;
         this.name = name;
         this.cost = cost;
@@ -22,10 +24,12 @@ public class Product {
         description = product.getDescription();
     }
 
+    @Nullable
     public Long getId() {
         return id;
     }
 
+    @Nullable
     public void setId(Long id) {
         this.id = id;
     }
@@ -52,5 +56,15 @@ public class Product {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Product product = (Product) o;
+
+        return id != null ? id.equals(product.id) : product.id == null;
     }
 }

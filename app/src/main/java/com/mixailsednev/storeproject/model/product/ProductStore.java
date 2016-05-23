@@ -46,7 +46,7 @@ public class ProductStore extends BaseStore {
     }
 
     public void addProduct(@NonNull Product product) {
-        products.remove(product);
+        products.add(product);
         notifyDataChanged(PRODUCT_CONTENT_URI);
     }
 

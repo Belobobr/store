@@ -40,7 +40,6 @@ public class ProductListPresenter extends BasePresenter<ProductListView>
 
     @Override
     public void loadProducts() {
-
-        loadProductsAction.run();
+        loadProductsAction.run(null);
     }
 }

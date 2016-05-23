@@ -11,6 +11,7 @@ import android.widget.EditText;
 import com.mixailsednev.storeproject.Injection;
 import com.mixailsednev.storeproject.R;
 import com.mixailsednev.storeproject.model.product.Product;
+import com.mixailsednev.storeproject.model.product.ProductBuilder;
 import com.mixailsednev.storeproject.view.common.BaseFragment;
 import com.mixailsednev.storeproject.view.product.details.ProductDetailFragment;
 import com.mixailsednev.storeproject.view.product.edit.ProductEditContract.ProductEditView;
@@ -38,7 +39,9 @@ public class ProductEditFragment extends BaseFragment<ProductEditPresenter> impl
 
     @Override
     public ProductEditPresenter createPresenter() {
-        return new ProductEditPresenter(this, Injection.provideProductStore(), productId);
+        return new ProductEditPresenter(productId, this,
+                Injection.provideProductStore(), Injection.provideUpdateProductAction(),
+                Injection.provideCreateProductAction());
     }
 
     @Override
@@ -54,9 +57,9 @@ public class ProductEditFragment extends BaseFragment<ProductEditPresenter> impl
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_product_edit, container, false);
-        nameEditText = (EditText)rootView.findViewById(R.id.name);
-        costEditText = (EditText)rootView.findViewById(R.id.cost);
-        descriptionEditText = (EditText)rootView.findViewById(R.id.description);
+        nameEditText = (EditText) rootView.findViewById(R.id.name);
+        costEditText = (EditText) rootView.findViewById(R.id.cost);
+        descriptionEditText = (EditText) rootView.findViewById(R.id.description);
         return rootView;
     }
 
@@ -65,5 +68,19 @@ public class ProductEditFragment extends BaseFragment<ProductEditPresenter> impl
         nameEditText.setText(product.getName());
         costEditText.setText(product.getCost());
         descriptionEditText.setText(product.getDescription());
+    }
+
+    public void editProductComplete() {
+        getPresenter().saveProduct(getProduct());
+    }
+
+    @NonNull
+    private Product getProduct() {
+        return new ProductBuilder()
+                .setId(productId)
+                .setName(nameEditText.getText().toString())
+                .setCost(costEditText.getText().toString())
+                .setDescription(descriptionEditText.getText().toString())
+                .createProduct();
     }
 }

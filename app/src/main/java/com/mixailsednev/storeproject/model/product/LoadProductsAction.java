@@ -9,7 +9,7 @@ import java.util.concurrent.TimeUnit;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
-public class LoadProductsAction extends Action {
+public class LoadProductsAction extends Action<Void> {
 
     @NonNull
     ProductStore productStore;
@@ -23,7 +23,7 @@ public class LoadProductsAction extends Action {
     }
 
     @Override
-    public void run() {
+    public void run(Void payload) {
         productStore.setLoading(true);
 
         productDao.getProductsObservable()

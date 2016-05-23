@@ -9,6 +9,9 @@ import com.mixailsednev.storeproject.model.product.ProductStore;
 
 import java.util.ArrayList;
 
+//TODO debug listeners
+//TODO refactor
+//TODO refactor uri matching
 public class BaseStore {
 
     public static final String TAG = BaseStore.class.getSimpleName();

@@ -81,11 +81,14 @@ public class ProductDetailActivity extends AppCompatActivity
     }
 
     private void editProductComplete() {
+        if (getProductEditFragment() != null) {
+            getProductEditFragment().editProductComplete();
+        }
+
         if (getProductId() == null) {
             NavUtils.navigateUpTo(ProductDetailActivity.this, new Intent(ProductDetailActivity.this, MainActivity.class));
         } else {
             getSupportFragmentManager().popBackStack();
-
             updateDetailsMenu();
         }
     }
@@ -102,6 +105,11 @@ public class ProductDetailActivity extends AppCompatActivity
 
     private boolean inEditMode() {
         return getSupportFragmentManager().findFragmentByTag(ProductEditFragment.TAG) != null;
+    }
+
+    @Nullable
+    private ProductEditFragment getProductEditFragment() {
+        return (ProductEditFragment)getSupportFragmentManager().findFragmentByTag(ProductEditFragment.TAG);
     }
 
 }

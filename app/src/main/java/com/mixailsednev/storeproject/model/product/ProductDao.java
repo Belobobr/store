@@ -1,8 +1,11 @@
 package com.mixailsednev.storeproject.model.product;
 
+import android.content.ContentUris;
 import android.content.ContentValues;
 import android.database.Cursor;
+import android.net.Uri;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.util.Log;
 
 import com.mixailsednev.storeproject.ProductStoreApplication;
@@ -31,7 +34,6 @@ public class ProductDao {
 
     @NonNull
     public List<Product> getProducts() {
-
         Cursor productsCursor = ProductStoreApplication.getContext().getContentResolver()
                 .query(ProductStoreContentProviderContract.PRODUCT_CONTENT_URI, null, null, null, null);
 
@@ -60,6 +62,54 @@ public class ProductDao {
             }
         }
         return cases;
+    }
+
+    public Observable<Long> createProductObservable(@NonNull Product creatingProduct) {
+        return Observable.create(subscriber -> {
+            Observable.just(createProduct(creatingProduct)).subscribe(subscriber);
+        });
+    }
+
+    @Nullable
+    public Long createProduct(@NonNull Product creatingProduct) {
+        ContentValues cv = new ContentValues();
+        cv.put(ProductStoreContentProviderContract.PRODUCT_NAME, creatingProduct.getName());
+        cv.put(ProductStoreContentProviderContract.PRODUCT_COST, creatingProduct.getCost());
+        cv.put(ProductStoreContentProviderContract.PRODUCT_DESCRIPTION, creatingProduct.getDescription());
+
+        Uri createdProductUri = ProductStoreApplication.getContext()
+                .getContentResolver().insert(ProductStoreContentProviderContract.PRODUCT_CONTENT_URI, cv);
+        if (createdProductUri != null) {
+            String id = createdProductUri.getLastPathSegment();
+            return Long.parseLong(id);
+        } else {
+            Log.e(TAG, " insert to : "  + ProductStoreContentProviderContract.PRODUCT_CONTENT_URI + " failed.");
+            return null;
+        }
+    }
+
+    public Observable<Integer> updateProductObservable(@NonNull Product updatingProduct) {
+        return Observable.create(subscriber -> {
+            Observable.just(updateProduct(updatingProduct)).subscribe(subscriber);
+        });
+    }
+
+
+    //TODO refactor to throw Exception on error
+    public Integer updateProduct(@NonNull Product updatingProduct) {
+        ContentValues cv = new ContentValues();
+        cv.put(ProductStoreContentProviderContract.PRODUCT_NAME, updatingProduct.getName());
+        cv.put(ProductStoreContentProviderContract.PRODUCT_COST, updatingProduct.getCost());
+        cv.put(ProductStoreContentProviderContract.PRODUCT_DESCRIPTION, updatingProduct.getDescription());
+
+        if (updatingProduct.getId() != null) {
+            Uri uri = ContentUris.withAppendedId(ProductStoreContentProviderContract.PRODUCT_CONTENT_URI, updatingProduct.getId());
+            return ProductStoreApplication.getContext()
+                    .getContentResolver().update(uri, cv, null, null);
+        } else {
+            Log.e(TAG, "Trying to update product without productID");
+            return -1;
+        }
     }
 
     public boolean saveProducts(@NonNull List<Product> products) {
