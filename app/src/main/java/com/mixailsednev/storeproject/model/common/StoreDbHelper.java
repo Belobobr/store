@@ -1,4 +1,4 @@
-package com.mixailsednev.storeproject.model.local;
+package com.mixailsednev.storeproject.model.common;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;

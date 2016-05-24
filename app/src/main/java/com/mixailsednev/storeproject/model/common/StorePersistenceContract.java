@@ -1,4 +1,4 @@
-package com.mixailsednev.storeproject.model.local;
+package com.mixailsednev.storeproject.model.common;
 
 import android.provider.BaseColumns;
 

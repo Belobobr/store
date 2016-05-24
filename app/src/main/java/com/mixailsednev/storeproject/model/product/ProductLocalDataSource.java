@@ -8,8 +8,8 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.Log;
 
-import com.mixailsednev.storeproject.model.local.StoreDbHelper;
-import com.mixailsednev.storeproject.model.local.StorePersistenceContract.ProductEntry;
+import com.mixailsednev.storeproject.model.common.StoreDbHelper;
+import com.mixailsednev.storeproject.model.common.StorePersistenceContract.ProductEntry;
 
 import java.util.ArrayList;
 import java.util.List;
