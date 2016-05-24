@@ -52,12 +52,6 @@ public abstract class BaseFragment<Presenter extends BasePresenter> extends Frag
         super.onSaveInstanceState(outState);
     }
 
-    /**
-     * Called if a new state has been created because no viewstate from a previous
-     * Activity or Fragment instance could be restored.
-     * <p><b>Typically this is called on the first time the <i>Activity</i> or <i>Fragment</i> starts
-     * and therefore no view state instance previously exists</b></p>
-     */
     public void onNewViewStateInstance() {
 
     }

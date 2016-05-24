@@ -16,6 +16,9 @@ import com.mixailsednev.storeproject.model.product.Product;
 
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class ProductRecyclerViewAdapter extends RecyclerView.Adapter<ProductRecyclerViewAdapter.ViewHolder> {
 
     public interface ProductRemovedListener {
@@ -75,16 +78,17 @@ public class ProductRecyclerViewAdapter extends RecyclerView.Adapter<ProductRecy
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        public final View view;
-        public final TextView nameTextView;
-        public final ImageView popupMenuImageView;
+        @BindView(R.id.product_name)
+        public TextView nameTextView;
+        @BindView(R.id.product_popup_menu)
+        public ImageView popupMenuImageView;
+        public View view;
         public Product product;
 
         public ViewHolder(View view) {
             super(view);
             this.view = view;
-            nameTextView = (TextView) view.findViewById(R.id.product_name);
-            popupMenuImageView = (ImageView) view.findViewById(R.id.product_popup_menu);
+            ButterKnife.bind(this, view);
         }
 
         @Override

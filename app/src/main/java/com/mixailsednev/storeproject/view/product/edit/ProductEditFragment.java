@@ -16,6 +16,9 @@ import com.mixailsednev.storeproject.view.common.BaseFragment;
 import com.mixailsednev.storeproject.view.product.details.ProductDetailFragment;
 import com.mixailsednev.storeproject.view.product.edit.ProductEditContract.ProductEditView;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class ProductEditFragment extends BaseFragment<ProductEditPresenter> implements ProductEditView {
 
     public static final String TAG = ProductEditFragment.class.getSimpleName();
@@ -33,9 +36,13 @@ public class ProductEditFragment extends BaseFragment<ProductEditPresenter> impl
 
     @Nullable
     private Long productId;
-    private EditText nameEditText;
-    private EditText costEditText;
-    private EditText descriptionEditText;
+
+    @BindView(R.id.name)
+    protected EditText nameEditText;
+    @BindView(R.id.cost)
+    protected EditText costEditText;
+    @BindView(R.id.description)
+    protected EditText descriptionEditText;
 
     @Override
     public ProductEditPresenter createPresenter() {
@@ -58,9 +65,7 @@ public class ProductEditFragment extends BaseFragment<ProductEditPresenter> impl
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_product_edit, container, false);
-        nameEditText = (EditText) rootView.findViewById(R.id.name);
-        costEditText = (EditText) rootView.findViewById(R.id.cost);
-        descriptionEditText = (EditText) rootView.findViewById(R.id.description);
+        ButterKnife.bind(this, rootView);
         return rootView;
     }
 

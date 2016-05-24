@@ -13,6 +13,9 @@ import com.mixailsednev.storeproject.view.common.BaseFragment;
 import com.mixailsednev.storeproject.view.custom.ProductParamView;
 import com.mixailsednev.storeproject.view.product.details.ProductDetailsContract.ProductDetailsView;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class ProductDetailFragment extends BaseFragment<ProductDetailsPresenter> implements ProductDetailsView {
 
     public static final String ARG_PRODUCT_ID = "product_id";
@@ -27,10 +30,13 @@ public class ProductDetailFragment extends BaseFragment<ProductDetailsPresenter>
 
     @NonNull
     private Long productId;
-    private ProductParamView productNameView;
-    private ProductParamView productCostView;
-    private ProductParamView productDescriptionView;
 
+    @BindView(R.id.product_name)
+    protected ProductParamView productNameView;
+    @BindView(R.id.product_cost)
+    protected ProductParamView productCostView;
+    @BindView(R.id.product_description)
+    protected ProductParamView productDescriptionView;
 
     @Override
     public ProductDetailsPresenter createPresenter() {
@@ -50,9 +56,7 @@ public class ProductDetailFragment extends BaseFragment<ProductDetailsPresenter>
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_product_detail, container, false);
-        productNameView = (ProductParamView) rootView.findViewById(R.id.product_name);
-        productCostView = (ProductParamView) rootView.findViewById(R.id.product_cost);
-        productDescriptionView = (ProductParamView) rootView.findViewById(R.id.product_description);
+        ButterKnife.bind(this, rootView);
         return rootView;
     }
 

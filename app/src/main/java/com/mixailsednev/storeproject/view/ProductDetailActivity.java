@@ -12,15 +12,20 @@ import com.mixailsednev.storeproject.R;
 import com.mixailsednev.storeproject.view.product.details.ProductDetailFragment;
 import com.mixailsednev.storeproject.view.product.edit.ProductEditFragment;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class ProductDetailActivity extends AppCompatActivity
         implements Toolbar.OnMenuItemClickListener {
 
-    private Toolbar detailsToolbar;
+    @BindView(R.id.detail_toolbar)
+    protected Toolbar detailsToolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_detail);
+        ButterKnife.bind(this);
 
         if (savedInstanceState == null) {
             if (getProductId() == null) {
@@ -34,7 +39,6 @@ public class ProductDetailActivity extends AppCompatActivity
             }
         }
 
-        detailsToolbar = (Toolbar) findViewById(R.id.detail_toolbar);
         detailsToolbar.setTitle(getString(R.string.products));
         detailsToolbar.setNavigationIcon(R.drawable.back);
         detailsToolbar.setOnMenuItemClickListener(this);
@@ -97,10 +101,8 @@ public class ProductDetailActivity extends AppCompatActivity
         getSupportFragmentManager().executePendingTransactions();
         int menuRes = inEditMode() ? R.menu.edit_menu_menu : R.menu.details_menu;
 
-        if (detailsToolbar != null) {
-            detailsToolbar.getMenu().clear();
-            detailsToolbar.inflateMenu(menuRes);
-        }
+        detailsToolbar.getMenu().clear();
+        detailsToolbar.inflateMenu(menuRes);
     }
 
     private boolean inEditMode() {

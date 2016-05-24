@@ -18,6 +18,9 @@ import com.mixailsednev.storeproject.view.product.list.ProductListContract.Produ
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class ProductListFragment extends BaseFragment<ProductListPresenter> implements ProductListView,
         ProductRecyclerViewAdapter.ProductRemovedListener
 {
@@ -30,10 +33,13 @@ public class ProductListFragment extends BaseFragment<ProductListPresenter> impl
         return new ProductListFragment();
     }
 
-    private ProductSelectedListener productSelectedListener;
-    private View progressLayout;
-    private RecyclerView recyclerView;
+    @BindView(R.id.product_list)
+    protected RecyclerView recyclerView;
+    @BindView(R.id.progress)
+    protected View progressLayout;
+
     private ProductRecyclerViewAdapter productRecyclerViewAdapter;
+    private ProductSelectedListener productSelectedListener;
 
     @Override
     public ProductListPresenter createPresenter() {
@@ -51,15 +57,12 @@ public class ProductListFragment extends BaseFragment<ProductListPresenter> impl
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_product_list, container, false);
-
-        recyclerView = (RecyclerView) view.findViewById(R.id.product_list);
-        progressLayout = view.findViewById(R.id.progress);
+        View rootView = inflater.inflate(R.layout.fragment_product_list, container, false);
+        ButterKnife.bind(this, rootView);
 
         productRecyclerViewAdapter = new ProductRecyclerViewAdapter(new ArrayList<>(), productSelectedListener, this);
         recyclerView.setAdapter(productRecyclerViewAdapter);
-
-        return view;
+        return rootView;
     }
 
     @Override

@@ -43,12 +43,7 @@ public abstract class BaseActivity<Presenter extends BasePresenter> extends AppC
         getPresenter().unSubscribeFromDataStore();
     }
 
-    /**
-     * Called if a new state has been created because no viewstate from a previous
-     * Activity or Fragment instance could be restored.
-     * <p><b>Typically this is called on the first time the <i>Activity</i> or <i>Fragment</i> starts
-     * and therefore no view state instance previously exists</b></p>
-     */
+
     public void onNewViewStateInstance() {
 
     }

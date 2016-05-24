@@ -5,34 +5,40 @@ import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.mixailsednev.storeproject.R;
-import com.mixailsednev.storeproject.view.product.edit.ProductEditFragment;
 import com.mixailsednev.storeproject.view.product.details.ProductDetailFragment;
+import com.mixailsednev.storeproject.view.product.edit.ProductEditFragment;
 import com.mixailsednev.storeproject.view.product.list.ProductListFragment;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class MainActivity extends AppCompatActivity
         implements ProductListFragment.ProductSelectedListener, Toolbar.OnMenuItemClickListener {
+
     private boolean twoPane;
     //TODO move to model view? / presenter
     @NonNull
     private Long selectedProductId;
-
-    protected DrawerLayout drawerlayout;
     private ActionBarDrawerToggle drawerToggle;
+
     @Nullable
-    private Toolbar detailsToolbar;
+    @BindView(R.id.detail_toolbar)
+    protected Toolbar detailsToolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        ButterKnife.bind(this);
 
         if (findViewById(R.id.details_container) != null) {
             twoPane = true;
@@ -45,34 +51,32 @@ public class MainActivity extends AppCompatActivity
                     .commit();
         }
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener((view) -> {
-            if (twoPane) {
-                newProduct();
-            } else {
-                Intent intent = new Intent(MainActivity.this, ProductDetailActivity.class);
-                MainActivity.this.startActivity(intent);
-            }
-        });
-
         Toolbar mainToolbar = (Toolbar) findViewById(R.id.main_toolbar);
         mainToolbar.inflateMenu(R.menu.main_menu);
         mainToolbar.setTitle(getString(R.string.products));
         mainToolbar.setNavigationIcon(R.drawable.ic_menu);
 
-        drawerlayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawerlayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawerToggle = new ActionBarDrawerToggle(this, drawerlayout, mainToolbar,
                 R.string.open_navigation_drawer, R.string.close_navigation_drawer) {
         };
-
         drawerlayout.setDrawerListener(drawerToggle);
         drawerToggle.syncState();
 
-        detailsToolbar = (Toolbar) findViewById(R.id.detail_toolbar);
         if (detailsToolbar != null) {
             detailsToolbar.setOnMenuItemClickListener(this);
         }
         updateDetailsMenu();
+    }
+
+    @OnClick(R.id.fab)
+    public void onCreateProduct(View view) {
+        if (twoPane) {
+            newProduct();
+        } else {
+            Intent intent = new Intent(MainActivity.this, ProductDetailActivity.class);
+            MainActivity.this.startActivity(intent);
+        }
     }
 
     @Override
@@ -150,6 +154,6 @@ public class MainActivity extends AppCompatActivity
 
     @Nullable
     private ProductEditFragment getProductEditFragment() {
-        return (ProductEditFragment)getSupportFragmentManager().findFragmentByTag(ProductEditFragment.TAG);
+        return (ProductEditFragment) getSupportFragmentManager().findFragmentByTag(ProductEditFragment.TAG);
     }
 }
