@@ -10,13 +10,13 @@ import rx.schedulers.Schedulers;
 public class RemoveProductAction extends Action<Product> {
 
     @NonNull
-    private ProductStore productStore;
+    private ProductRepository productRepository;
 
     @NonNull
     private ProductDao productDao;
 
-    public RemoveProductAction(@NonNull ProductStore productStore, @NonNull ProductDao productDao) {
-        this.productStore = productStore;
+    public RemoveProductAction(@NonNull ProductRepository productRepository, @NonNull ProductDao productDao) {
+        this.productRepository = productRepository;
         this.productDao = productDao;
     }
 
@@ -28,7 +28,7 @@ public class RemoveProductAction extends Action<Product> {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(removed -> {
                     if (removed == 1) {
-                        productStore.removeProduct(product);
+                        productRepository.removeProduct(product);
                     }
                 });
 

@@ -3,14 +3,14 @@ package com.mixailsednev.storeproject;
 import com.mixailsednev.storeproject.model.product.CreateProductAction;
 import com.mixailsednev.storeproject.model.product.LoadProductsAction;
 import com.mixailsednev.storeproject.model.product.ProductDao;
-import com.mixailsednev.storeproject.model.product.ProductStore;
+import com.mixailsednev.storeproject.model.product.ProductRepository;
 import com.mixailsednev.storeproject.model.product.RemoveProductAction;
 import com.mixailsednev.storeproject.model.product.UpdateProductAction;
 
 public class Injection {
 
-    public static ProductStore provideProductStore() {
-        return ProductStore.getInstance();
+    public static ProductRepository provideProductStore() {
+        return ProductRepository.getInstance();
     }
 
     public static ProductDao provideProductDao() {

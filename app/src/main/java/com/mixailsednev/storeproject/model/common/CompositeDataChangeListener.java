@@ -4,27 +4,28 @@ import android.support.annotation.NonNull;
 
 import java.util.HashMap;
 import java.util.Map;
+import com.mixailsednev.storeproject.model.common.BaseRepository.DataChangeListener;
 
 public class CompositeDataChangeListener {
 
-    private Map<BaseStore, DataChangeListener> dataChangeListeners;
+    private Map<BaseRepository,DataChangeListener> dataChangeListeners;
 
     public CompositeDataChangeListener() {
         dataChangeListeners = new HashMap<>();
     }
 
-    public void addListener(@NonNull BaseStore store, @NonNull DataChangeListener dataChangeListener) {
+    public void addListener(@NonNull BaseRepository store, @NonNull DataChangeListener dataChangeListener) {
         dataChangeListeners.put(store, dataChangeListener);
     }
 
     public void subscribe() {
-        for (BaseStore store : dataChangeListeners.keySet()) {
+        for (BaseRepository store : dataChangeListeners.keySet()) {
             store.addListener(dataChangeListeners.get(store));
         }
     }
 
     public void unSubscribe() {
-        for (BaseStore store : dataChangeListeners.keySet()) {
+        for (BaseRepository store : dataChangeListeners.keySet()) {
             store.removeListener(dataChangeListeners.get(store));
         }
     }

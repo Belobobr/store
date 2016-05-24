@@ -1,63 +1,60 @@
 package com.mixailsednev.storeproject.model.product;
 
-import android.content.ContentUris;
-import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.Log;
 
-import com.mixailsednev.storeproject.model.common.BaseStore;
+import com.mixailsednev.storeproject.model.common.BaseRepository;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ProductStore extends BaseStore {
+public class ProductRepository extends BaseRepository {
 
-    public static String TAG = ProductStore.class.getSimpleName();
+    public static String TAG = ProductRepository.class.getSimpleName();
 
     @NonNull
     private List<Product> products;
     private boolean loading;
 
-    private static ProductStore instance = new ProductStore();
+    private static ProductRepository instance = new ProductRepository();
 
-    public static ProductStore getInstance() {
+    public static ProductRepository getInstance() {
         return instance;
     }
 
-    public ProductStore() {
+    public ProductRepository() {
         this.products = new ArrayList<>();
         this.loading = false;
     }
 
     public void setProducts(@NonNull List<Product> products) {
         this.products = products;
-        notifyDataChanged(PRODUCT_CONTENT_URI);
+        notifyDataChanged();
     }
 
     public void setLoading(boolean loading) {
         this.loading = loading;
-        notifyDataChanged(PRODUCT_CONTENT_URI);
+        notifyDataChanged();
     }
 
     public void removeProduct(@NonNull Product product) {
         products.remove(product);
-        notifyDataChanged(PRODUCT_CONTENT_URI);
+        notifyDataChanged();
     }
 
     public void addProduct(@NonNull Product product) {
         products.add(product);
-        notifyDataChanged(PRODUCT_CONTENT_URI);
+        notifyDataChanged();
     }
 
     public void updateProduct(@NonNull Product product) {
         if (products.indexOf(product) == -1) {
-            Log.e(TAG, "Trying to update product: " + product + ", that not in ProductStore");
+            Log.e(TAG, "Trying to update product: " + product + ", that not in ProductRepository");
         } else {
             products.get(products.indexOf(product)).update(product);
         }
-        Uri uri = ContentUris.withAppendedId(PRODUCT_CONTENT_URI, product.getId());
-        notifyDataChanged(uri);
+        notifyDataChanged();
     }
 
     @NonNull
@@ -72,7 +69,7 @@ public class ProductStore extends BaseStore {
     @Nullable
     public Product getProduct(@NonNull Long productId) {
         for (Product product : products) {
-            if (product.getId().equals(productId)) {
+            if (productId.equals(product.getId())) {
                 return product;
             }
         }

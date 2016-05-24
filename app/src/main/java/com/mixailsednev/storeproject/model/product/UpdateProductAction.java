@@ -10,13 +10,13 @@ import rx.schedulers.Schedulers;
 public class UpdateProductAction extends Action<Product> {
 
     @NonNull
-    private ProductStore productStore;
+    private ProductRepository productRepository;
 
     @NonNull
     private ProductDao productDao;
 
-    public UpdateProductAction(@NonNull ProductStore productStore, @NonNull ProductDao productDao) {
-        this.productStore = productStore;
+    public UpdateProductAction(@NonNull ProductRepository productRepository, @NonNull ProductDao productDao) {
+        this.productRepository = productRepository;
         this.productDao = productDao;
     }
 
@@ -28,7 +28,7 @@ public class UpdateProductAction extends Action<Product> {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(updated -> {
                     if (updated == 1) {
-                        productStore.updateProduct(product);
+                        productRepository.updateProduct(product);
                     }
                 });
 

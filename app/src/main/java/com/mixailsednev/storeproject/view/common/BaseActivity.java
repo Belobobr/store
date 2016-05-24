@@ -6,7 +6,6 @@ import android.support.v7.app.AppCompatActivity;
 
 public abstract class BaseActivity<Presenter extends BasePresenter> extends AppCompatActivity {
 
-    private static String ARG_RESTORED = "RESTORED";
     protected Presenter presenter;
 
     @Override
@@ -21,14 +20,13 @@ public abstract class BaseActivity<Presenter extends BasePresenter> extends AppC
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putBoolean(ARG_RESTORED, true);
     }
 
     @Override
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
 
-        if (savedInstanceState == null || !savedInstanceState.getBoolean(ARG_RESTORED)) {
+        if (savedInstanceState == null) {
             onNewViewStateInstance();
         }
     }
