@@ -39,8 +39,8 @@ public class ProductListFragment extends BaseFragment<ProductListPresenter> impl
     public ProductListPresenter createPresenter() {
         return new ProductListPresenter(this,
                 Injection.provideProductStore(),
-                Injection.provideLoadProductsAction(),
-                Injection.provideRemoveProductAction());
+                Injection.provideLoadProductsAction(getContext()),
+                Injection.provideRemoveProductAction(getContext()));
     }
 
     @Override

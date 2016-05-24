@@ -13,18 +13,18 @@ public class LoadProductsAction extends Action<Void> {
     ProductRepository productRepository;
 
     @NonNull
-    ProductDao productDao;
+    ProductLocalDataSource productLocalDataSource;
 
-    public LoadProductsAction(@NonNull ProductRepository productRepository, @NonNull ProductDao productDao) {
+    public LoadProductsAction(@NonNull ProductRepository productRepository, @NonNull ProductLocalDataSource productLocalDataSource) {
         this.productRepository = productRepository;
-        this.productDao = productDao;
+        this.productLocalDataSource = productLocalDataSource;
     }
 
     @Override
     public void run(Void payload) {
         productRepository.setLoading(true);
 
-        productDao.getProductsObservable()
+        productLocalDataSource.getProductsObservable()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(products -> {

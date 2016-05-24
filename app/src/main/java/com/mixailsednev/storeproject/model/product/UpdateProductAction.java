@@ -13,17 +13,17 @@ public class UpdateProductAction extends Action<Product> {
     private ProductRepository productRepository;
 
     @NonNull
-    private ProductDao productDao;
+    private ProductLocalDataSource productLocalDataSource;
 
-    public UpdateProductAction(@NonNull ProductRepository productRepository, @NonNull ProductDao productDao) {
+    public UpdateProductAction(@NonNull ProductRepository productRepository, @NonNull ProductLocalDataSource productLocalDataSource) {
         this.productRepository = productRepository;
-        this.productDao = productDao;
+        this.productLocalDataSource = productLocalDataSource;
     }
 
     //TODO catch error in on error
     @Override
     public void run(@NonNull Product product) {
-        productDao.updateProductObservable(product)
+        productLocalDataSource.updateProductObservable(product)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(updated -> {

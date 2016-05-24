@@ -40,8 +40,9 @@ public class ProductEditFragment extends BaseFragment<ProductEditPresenter> impl
     @Override
     public ProductEditPresenter createPresenter() {
         return new ProductEditPresenter(productId, this,
-                Injection.provideProductStore(), Injection.provideUpdateProductAction(),
-                Injection.provideCreateProductAction());
+                Injection.provideProductStore(),
+                Injection.provideUpdateProductAction(getContext()),
+                Injection.provideCreateProductAction(getContext()));
     }
 
     @Override

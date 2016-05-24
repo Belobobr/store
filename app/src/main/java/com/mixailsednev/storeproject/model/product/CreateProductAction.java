@@ -13,16 +13,16 @@ public class CreateProductAction extends Action<Product> {
     private ProductRepository productRepository;
 
     @NonNull
-    private ProductDao productDao;
+    private ProductLocalDataSource productLocalDataSource;
 
-    public CreateProductAction(@NonNull ProductRepository productRepository, @NonNull ProductDao productDao) {
+    public CreateProductAction(@NonNull ProductRepository productRepository, @NonNull ProductLocalDataSource productLocalDataSource) {
         this.productRepository = productRepository;
-        this.productDao = productDao;
+        this.productLocalDataSource = productLocalDataSource;
     }
 
     @Override
     public void run(@NonNull Product product) {
-        productDao.createProductObservable(product)
+        productLocalDataSource.createProductObservable(product)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(productId -> {

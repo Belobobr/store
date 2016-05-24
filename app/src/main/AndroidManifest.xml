@@ -30,13 +30,6 @@
           android:value=".view.MainActivity"/>
     </activity>
 
-
-    <provider
-        android:name=".model.content_provider.ProductStoreContentProvider"
-        android:authorities="com.mixailsednev.storeproject"
-        android:enabled="true"
-        android:exported="false">
-    </provider>
   </application>
 
 </manifest>
