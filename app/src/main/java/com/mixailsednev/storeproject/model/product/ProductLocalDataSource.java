@@ -6,7 +6,6 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.util.Log;
 
 import com.mixailsednev.storeproject.model.common.StoreDbHelper;
 import com.mixailsednev.storeproject.model.common.StorePersistenceContract.ProductEntry;
@@ -104,7 +103,7 @@ public class ProductLocalDataSource {
 
         db.close();
 
-        if (id == 0) {
+        if (id != -1) {
             return id;
         } else {
             throw new RuntimeException("Can't create product");
@@ -117,7 +116,6 @@ public class ProductLocalDataSource {
         });
     }
 
-    //TODO refactor to throw Exception on error
     public Integer updateProduct(@NonNull Product updatingProduct) {
         if (updatingProduct.getId() != null) {
             SQLiteDatabase db = mDbHelper.getWritableDatabase();
@@ -134,10 +132,13 @@ public class ProductLocalDataSource {
 
             db.close();
 
-            return updated;
+            if (updated == 1) {
+                return updated;
+            } else {
+                throw new RuntimeException("Product were not updated");
+            }
         } else {
-            Log.e(TAG, "Trying to update product with id == null");
-            return 0;
+            throw new RuntimeException("Trying to update product with id == null");
         }
     }
 
@@ -158,10 +159,13 @@ public class ProductLocalDataSource {
 
             db.close();
 
-            return deleted;
+            if (deleted == 1) {
+                return deleted;
+            } else {
+                throw new RuntimeException("Product were not deleted");
+            }
         } else {
-            Log.e(TAG, "Trying to delete product with id == null");
-            return 0;
+            throw new RuntimeException("Trying to delete product with id == null");
         }
     }
 }

@@ -1,6 +1,7 @@
 package com.mixailsednev.storeproject.model.product;
 
 import android.support.annotation.NonNull;
+import android.util.Log;
 
 import com.mixailsednev.storeproject.model.common.Action;
 
@@ -28,6 +29,8 @@ public class CreateProductAction extends Action<Product> {
                 .subscribe(productId -> {
                     product.setId(productId);
                     productRepository.addProduct(product);
+                }, (error) -> {
+                    Log.e(CreateProductAction.class.getSimpleName(), "Can't create product");
                 });
 
     }

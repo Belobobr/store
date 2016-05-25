@@ -1,6 +1,7 @@
 package com.mixailsednev.storeproject.model.product;
 
 import android.support.annotation.NonNull;
+import android.util.Log;
 
 import com.mixailsednev.storeproject.model.common.Action;
 
@@ -20,16 +21,15 @@ public class RemoveProductAction extends Action<Product> {
         this.productLocalDataSource = productLocalDataSource;
     }
 
-    //TODO catch error in on error
     @Override
     public void run(@NonNull Product product) {
         productLocalDataSource.removeProductObservable(product)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(removed -> {
-                    if (removed == 1) {
-                        productRepository.removeProduct(product);
-                    }
+                    productRepository.removeProduct(product);
+                }, (error) -> {
+                    Log.e(RemoveProductAction.class.getSimpleName(), "Can't remove product");
                 });
 
     }
