@@ -18,7 +18,7 @@ public class BaseRepository {
 
     public void notifyDataChanged() {
         for (DataChangeListener listener : mDataChangeListeners) {
-           listener.newDataReceived();
+            listener.newDataReceived();
         }
     }
 

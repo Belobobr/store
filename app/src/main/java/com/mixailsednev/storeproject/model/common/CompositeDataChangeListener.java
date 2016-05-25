@@ -2,13 +2,14 @@ package com.mixailsednev.storeproject.model.common;
 
 import android.support.annotation.NonNull;
 
+import com.mixailsednev.storeproject.model.common.BaseRepository.DataChangeListener;
+
 import java.util.HashMap;
 import java.util.Map;
-import com.mixailsednev.storeproject.model.common.BaseRepository.DataChangeListener;
 
 public class CompositeDataChangeListener {
 
-    private Map<BaseRepository,DataChangeListener> dataChangeListeners;
+    private Map<BaseRepository, DataChangeListener> dataChangeListeners;
 
     public CompositeDataChangeListener() {
         dataChangeListeners = new HashMap<>();

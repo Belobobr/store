@@ -111,7 +111,7 @@ public class ProductDetailActivity extends AppCompatActivity
 
     @Nullable
     private ProductEditFragment getProductEditFragment() {
-        return (ProductEditFragment)getSupportFragmentManager().findFragmentByTag(ProductEditFragment.TAG);
+        return (ProductEditFragment) getSupportFragmentManager().findFragmentByTag(ProductEditFragment.TAG);
     }
 
 }

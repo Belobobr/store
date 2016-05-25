@@ -21,7 +21,7 @@ public class StoreDbHelper extends SQLiteOpenHelper {
                     StorePersistenceContract.ProductEntry.COLUMN_NAME_NAME + TEXT_TYPE + COMMA_SEP +
                     StorePersistenceContract.ProductEntry.COLUMN_NAME_DESCRIPTION + TEXT_TYPE + COMMA_SEP +
                     StorePersistenceContract.ProductEntry.COLUMN_NAME_COST + TEXT_TYPE +
-            " )";
+                    " )";
 
     public StoreDbHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);

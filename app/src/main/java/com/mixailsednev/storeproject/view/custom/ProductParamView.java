@@ -44,9 +44,9 @@ public class ProductParamView extends LinearLayout {
 
         View view = LayoutInflater.from(context).inflate(R.layout.item_product_details, this, true);
 
-        ImageView iconImageView = ((ImageView)view.findViewById(R.id.icon));
-        TextView paramTextView = ((TextView)view.findViewById(R.id.param));
-        paramValueTextView = ((TextView)view.findViewById(R.id.param_value));
+        ImageView iconImageView = ((ImageView) view.findViewById(R.id.icon));
+        TextView paramTextView = ((TextView) view.findViewById(R.id.param));
+        paramValueTextView = ((TextView) view.findViewById(R.id.param_value));
 
         iconImageView.setImageDrawable(icon);
         paramTextView.setText(param);

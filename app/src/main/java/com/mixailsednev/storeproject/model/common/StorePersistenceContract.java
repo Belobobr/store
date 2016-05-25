@@ -5,7 +5,8 @@ import android.provider.BaseColumns;
 
 public final class StorePersistenceContract {
 
-    public StorePersistenceContract() {}
+    public StorePersistenceContract() {
+    }
 
     public static abstract class ProductEntry implements BaseColumns {
         public static final String TABLE_NAME = "product";

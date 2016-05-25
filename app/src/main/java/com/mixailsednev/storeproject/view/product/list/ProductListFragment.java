@@ -22,8 +22,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class ProductListFragment extends BaseFragment<ProductListPresenter> implements ProductListView,
-        ProductRecyclerViewAdapter.ProductRemovedListener
-{
+        ProductRecyclerViewAdapter.ProductRemovedListener {
 
     public interface ProductSelectedListener {
         void productSelected(@NonNull Long productId);

@@ -92,7 +92,7 @@ public class ProductLocalDataSource {
     }
 
     @Nullable
-    public Long createProduct(@NonNull Product creatingProduct) {
+    public Long createProduct(@NonNull Product creatingProduct) throws RuntimeException {
         SQLiteDatabase db = mDbHelper.getWritableDatabase();
 
         ContentValues values = new ContentValues();
@@ -104,7 +104,11 @@ public class ProductLocalDataSource {
 
         db.close();
 
-        return id;
+        if (id == 0) {
+            return id;
+        } else {
+            throw new RuntimeException("Can't create product");
+        }
     }
 
     public Observable<Integer> updateProductObservable(@NonNull Product updatingProduct) {
@@ -112,7 +116,6 @@ public class ProductLocalDataSource {
             Observable.just(updateProduct(updatingProduct)).subscribe(subscriber);
         });
     }
-
 
     //TODO refactor to throw Exception on error
     public Integer updateProduct(@NonNull Product updatingProduct) {
