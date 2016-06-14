@@ -10,13 +10,9 @@ public class ProductListContract {
 
     public interface ProductListView {
         void setProducts(@NonNull List<Product> products);
-
-        void setLoading(boolean loading);
     }
 
     public interface ActionsListener {
-        void loadProducts();
-
         void removeProduct(@NonNull Product product);
     }
 }

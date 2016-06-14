@@ -24,18 +24,18 @@ public class ProductEditFragment extends BaseFragment<ProductEditPresenter> impl
     public static final String TAG = ProductEditFragment.class.getSimpleName();
     public static final String ARG_PRODUCT_ID = "product_id";
 
-    public static ProductEditFragment newInstance(@Nullable Long productId) {
+    public static ProductEditFragment newInstance(@Nullable String productId) {
         ProductEditFragment fragment = new ProductEditFragment();
         Bundle arguments = new Bundle();
         if (productId != null) {
-            arguments.putLong(ProductDetailFragment.ARG_PRODUCT_ID, productId);
+            arguments.putString(ProductDetailFragment.ARG_PRODUCT_ID, productId);
         }
         fragment.setArguments(arguments);
         return fragment;
     }
 
     @Nullable
-    private Long productId;
+    private String productId;
 
     @BindView(R.id.name)
     protected EditText nameEditText;
@@ -46,10 +46,7 @@ public class ProductEditFragment extends BaseFragment<ProductEditPresenter> impl
 
     @Override
     public ProductEditPresenter createPresenter() {
-        return new ProductEditPresenter(productId, this,
-                Injection.provideProductStore(),
-                Injection.provideUpdateProductAction(getContext()),
-                Injection.provideCreateProductAction(getContext()));
+        return new ProductEditPresenter(productId, this, Injection.provideProductRepository());
     }
 
     @Override
@@ -57,7 +54,7 @@ public class ProductEditFragment extends BaseFragment<ProductEditPresenter> impl
         super.onCreate(savedInstanceState);
 
         if (getArguments().containsKey(ARG_PRODUCT_ID)) {
-            productId = getArguments().getLong(ARG_PRODUCT_ID);
+            productId = getArguments().getString(ARG_PRODUCT_ID);
         }
     }
 

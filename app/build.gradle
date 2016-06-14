@@ -1,6 +1,7 @@
 apply plugin: 'com.android.application'
 apply plugin: 'me.tatarka.retrolambda'
 apply plugin: 'com.neenbedankt.android-apt'
+apply plugin: 'com.google.gms.google-services'
 
 android {
     compileSdkVersion rootProject.ext.compileSdkVersion
@@ -41,4 +42,8 @@ dependencies {
 
     compile "io.reactivex:rxandroid:$rootProject.RxAndroidVersion"
     compile "io.reactivex:rxjava:$rootProject.RxJavaVersion"
+
+    compile "com.google.firebase:firebase-auth:$rootProject.firebase"
+    compile "com.google.firebase:firebase-database:$rootProject.firebase"
+    compile 'com.fasterxml.jackson.core:jackson-databind:2.7.3'
 }

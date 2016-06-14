@@ -5,10 +5,8 @@ import android.support.annotation.Nullable;
 import android.util.Log;
 
 import com.mixailsednev.storeproject.model.common.CompositeDataChangeListener;
-import com.mixailsednev.storeproject.model.product.CreateProductAction;
 import com.mixailsednev.storeproject.model.product.Product;
 import com.mixailsednev.storeproject.model.product.ProductRepository;
-import com.mixailsednev.storeproject.model.product.UpdateProductAction;
 import com.mixailsednev.storeproject.view.common.BasePresenter;
 import com.mixailsednev.storeproject.view.product.edit.ProductEditContract.ActionsListener;
 import com.mixailsednev.storeproject.view.product.edit.ProductEditContract.ProductEditView;
@@ -21,25 +19,15 @@ public class ProductEditPresenter extends BasePresenter<ProductEditView>
     @NonNull
     ProductRepository productRepository;
 
-    @NonNull
-    CreateProductAction createProductAction;
-
-    @NonNull
-    UpdateProductAction updateProductAction;
-
     @Nullable
-    Long productId;
+    String productId;
 
-    public ProductEditPresenter(@Nullable Long productId,
+    public ProductEditPresenter(@Nullable String productId,
                                 @NonNull ProductEditView productEditView,
-                                @NonNull ProductRepository productRepository,
-                                @NonNull UpdateProductAction updateProductAction,
-                                @NonNull CreateProductAction createProductAction) {
+                                @NonNull ProductRepository productRepository) {
         super(productEditView);
         this.productRepository = productRepository;
         this.productId = productId;
-        this.createProductAction = createProductAction;
-        this.updateProductAction = updateProductAction;
     }
 
     @Override
@@ -60,9 +48,9 @@ public class ProductEditPresenter extends BasePresenter<ProductEditView>
     @Override
     public void saveProduct(@NonNull Product product) {
         if (product.getId() == null) {
-            createProductAction.run(product);
+            productRepository.addProduct(product);
         } else {
-            updateProductAction.run(product);
+            productRepository.updateProduct(product);
         }
     }
 }

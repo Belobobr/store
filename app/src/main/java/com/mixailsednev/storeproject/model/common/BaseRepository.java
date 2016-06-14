@@ -6,10 +6,9 @@ public class BaseRepository {
 
     private ArrayList<DataChangeListener> mDataChangeListeners = new ArrayList<>();
 
-    public DataChangeListener addListener(DataChangeListener dataChangeListener) {
+    public void addListener(DataChangeListener dataChangeListener) {
         mDataChangeListeners.add(dataChangeListener);
         dataChangeListener.newDataReceived();
-        return dataChangeListener;
     }
 
     public void removeListener(DataChangeListener dataDataChangeListener) {
@@ -24,6 +23,10 @@ public class BaseRepository {
 
     public interface DataChangeListener {
         void newDataReceived();
+    }
+
+    public int getListenersCount() {
+        return mDataChangeListeners.size();
     }
 
 }

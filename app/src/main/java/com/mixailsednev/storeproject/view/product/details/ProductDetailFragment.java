@@ -20,16 +20,16 @@ public class ProductDetailFragment extends BaseFragment<ProductDetailsPresenter>
 
     public static final String ARG_PRODUCT_ID = "product_id";
 
-    public static ProductDetailFragment newInstance(@NonNull Long productId) {
+    public static ProductDetailFragment newInstance(@NonNull String productId) {
         ProductDetailFragment fragment = new ProductDetailFragment();
         Bundle arguments = new Bundle();
-        arguments.putLong(ProductDetailFragment.ARG_PRODUCT_ID, productId);
+        arguments.putString(ProductDetailFragment.ARG_PRODUCT_ID, productId);
         fragment.setArguments(arguments);
         return fragment;
     }
 
     @NonNull
-    private Long productId;
+    private String productId;
 
     @BindView(R.id.product_name)
     protected ProductParamView productNameView;
@@ -40,7 +40,7 @@ public class ProductDetailFragment extends BaseFragment<ProductDetailsPresenter>
 
     @Override
     public ProductDetailsPresenter createPresenter() {
-        return new ProductDetailsPresenter(this, Injection.provideProductStore(), productId);
+        return new ProductDetailsPresenter(this, Injection.provideProductRepository(), productId);
     }
 
     @Override
@@ -48,7 +48,12 @@ public class ProductDetailFragment extends BaseFragment<ProductDetailsPresenter>
         super.onCreate(savedInstanceState);
 
         if (getArguments().containsKey(ARG_PRODUCT_ID)) {
-            productId = getArguments().getLong(ARG_PRODUCT_ID);
+            String productId = getArguments().getString(ARG_PRODUCT_ID);
+            if (productId != null) {
+                this.productId = productId;
+            } else {
+                throw new IllegalArgumentException("ProductId can't be null");
+            }
         }
     }
 

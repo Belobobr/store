@@ -25,7 +25,7 @@ public class ProductListFragment extends BaseFragment<ProductListPresenter> impl
         ProductRecyclerViewAdapter.ProductRemovedListener {
 
     public interface ProductSelectedListener {
-        void productSelected(@NonNull Long productId);
+        void productSelected(@NonNull String productId);
     }
 
     public static ProductListFragment newInstance() {
@@ -42,10 +42,7 @@ public class ProductListFragment extends BaseFragment<ProductListPresenter> impl
 
     @Override
     public ProductListPresenter createPresenter() {
-        return new ProductListPresenter(this,
-                Injection.provideProductStore(),
-                Injection.provideLoadProductsAction(getContext()),
-                Injection.provideRemoveProductAction(getContext()));
+        return new ProductListPresenter(this, Injection.provideProductRepository());
     }
 
     @Override
@@ -87,13 +84,7 @@ public class ProductListFragment extends BaseFragment<ProductListPresenter> impl
     }
 
     @Override
-    public void setLoading(boolean loading) {
-        progressLayout.setVisibility(loading ? View.VISIBLE : View.GONE);
-    }
-
-    @Override
     public void onNewViewStateInstance() {
-        getPresenter().loadProducts();
     }
 
     @Override

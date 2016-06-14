@@ -5,12 +5,12 @@ import android.support.annotation.Nullable;
 public class ProductBuilder {
 
     @Nullable
-    private Long id;
+    private String id;
     private String name;
     private String cost;
     private String description;
 
-    public ProductBuilder setId(@Nullable Long id) {
+    public ProductBuilder setId(@Nullable String id) {
         this.id = id;
         return this;
     }

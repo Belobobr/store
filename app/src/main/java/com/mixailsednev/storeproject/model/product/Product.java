@@ -3,15 +3,21 @@ package com.mixailsednev.storeproject.model.product;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
+import com.google.firebase.database.Exclude;
+
 public class Product {
 
+    @Exclude
     @Nullable
-    private Long id;
+    private String id;
     private String name;
     private String cost;
     private String description;
 
-    public Product(@Nullable Long id, String name, String cost, String description) {
+    public Product() {
+    }
+
+    public Product(@Nullable String id, String name, String cost, String description) {
         this.id = id;
         this.name = name;
         this.cost = cost;
@@ -25,12 +31,12 @@ public class Product {
     }
 
     @Nullable
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
     @Nullable
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 

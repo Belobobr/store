@@ -27,7 +27,7 @@ public class MainActivity extends AppCompatActivity
     private boolean twoPane;
     //TODO move to model view? / presenter
     @NonNull
-    private Long selectedProductId;
+    private String selectedProductId;
     private ActionBarDrawerToggle drawerToggle;
 
     @Nullable
@@ -99,7 +99,7 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
-    public void productSelected(@NonNull Long productId) {
+    public void productSelected(@NonNull String productId) {
         this.selectedProductId = productId;
 
         if (twoPane) {
@@ -118,7 +118,7 @@ public class MainActivity extends AppCompatActivity
         editProduct(null);
     }
 
-    private void editProduct(@Nullable Long productId) {
+    private void editProduct(@Nullable String productId) {
         ProductEditFragment fragment = ProductEditFragment.newInstance(productId);
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.details_container, fragment, ProductEditFragment.TAG)

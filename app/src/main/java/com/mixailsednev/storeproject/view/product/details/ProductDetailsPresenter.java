@@ -17,11 +17,11 @@ public class ProductDetailsPresenter extends BasePresenter<ProductDetailsView> {
     ProductRepository productRepository;
 
     @NonNull
-    Long productId;
+    String productId;
 
     public ProductDetailsPresenter(@NonNull ProductDetailsView productDetailsView,
                                    @NonNull ProductRepository productRepository,
-                                   @NonNull Long productId) {
+                                   @NonNull String productId) {
         super(productDetailsView);
         this.productRepository = productRepository;
         this.productId = productId;
