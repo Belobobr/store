@@ -12,6 +12,8 @@
   <string name="description">Description</string>
   <string name="remove">Remove</string>
 
-  <!-- TODO: Remove or change this placeholder text -->
-  <string name="hello_blank_fragment">Hello blank fragment</string>
+  <string name="welcome_screen_text">Welcome to Services</string>
+  <string name="explore_button_text">explore</string>
+  <string name="google_sign_in">google sign-in</string>
+  <string name="signing_in">Signing in...</string>
 </resources>
