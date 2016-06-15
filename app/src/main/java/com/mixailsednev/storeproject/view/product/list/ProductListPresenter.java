@@ -4,7 +4,7 @@ import android.support.annotation.NonNull;
 
 import com.mixailsednev.storeproject.model.common.CompositeDataChangeListener;
 import com.mixailsednev.storeproject.model.product.Product;
-import com.mixailsednev.storeproject.model.product.ProductRepository;
+import com.mixailsednev.storeproject.model.product.ProductsRepository;
 import com.mixailsednev.storeproject.view.common.BasePresenter;
 import com.mixailsednev.storeproject.view.product.list.ProductListContract.ProductListView;
 
@@ -12,25 +12,25 @@ public class ProductListPresenter extends BasePresenter<ProductListView>
         implements ProductListContract.ActionsListener {
 
     @NonNull
-    ProductRepository productRepository;
+    ProductsRepository productsRepository;
 
     public ProductListPresenter(@NonNull ProductListView productListView,
-                                @NonNull ProductRepository productRepository
+                                @NonNull ProductsRepository productsRepository
     ) {
         super(productListView);
-        this.productRepository = productRepository;
+        this.productsRepository = productsRepository;
     }
 
     @Override
     public void subscribeToDataStoreInternal(@NonNull CompositeDataChangeListener compositeDataChangeListener) {
         compositeDataChangeListener.addListener(
-                productRepository,
-                () -> getView().setProducts(productRepository.getProducts())
+                productsRepository,
+                () -> getView().setProducts(productsRepository.getProducts())
         );
     }
 
     @Override
     public void removeProduct(@NonNull Product product) {
-        productRepository.removeProduct(product);
+        productsRepository.removeProduct(product);
     }
 }

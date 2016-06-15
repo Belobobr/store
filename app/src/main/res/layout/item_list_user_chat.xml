@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="@dimen/two_line_list_item"
+    android:background="?android:attr/selectableItemBackground">
+
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:layout_width="@dimen/avatar_size"
+        android:layout_height="@dimen/avatar_size"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="@dimen/horizontal_content_margin"
+        android:src="@drawable/afro" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="@dimen/item_margin"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/chat_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toLeftOf="@+id/chat_last_message_time"
+            android:textAppearance="@style/TextAppearance.ListItem.MainText"
+            tools:text="Виктория Сайфиулина" />
+
+
+        <TextView
+            android:id="@+id/chat_last_message"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/chat_name"
+            android:textAppearance="@style/TextAppearance.ListItem.SecondaryText"
+            tools:text="Я ее люблю" />
+
+
+        <TextView
+            android:id="@id/chat_last_message_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignBaseline="@id/chat_name"
+            android:layout_marginRight="@dimen/horizontal_content_margin"
+            android:textAppearance="@style/TextAppearance.ListItem.SecondaryText"
+            tools:text="15:35" />
+
+    </RelativeLayout>
+
+
+
+</RelativeLayout>

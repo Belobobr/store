@@ -1,4 +1,4 @@
-package com.mixailsednev.storeproject.view.product.list;
+package com.mixailsednev.storeproject.view.messages.userChat;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -11,9 +11,9 @@ import android.view.ViewGroup;
 
 import com.mixailsednev.storeproject.Injection;
 import com.mixailsednev.storeproject.R;
-import com.mixailsednev.storeproject.model.product.Product;
+import com.mixailsednev.storeproject.model.messages.userChat.UserChat;
 import com.mixailsednev.storeproject.view.common.BaseFragment;
-import com.mixailsednev.storeproject.view.product.list.ProductListContract.ProductListView;
+import com.mixailsednev.storeproject.view.messages.userChat.UserChatsContract.UserChatsView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,15 +21,15 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class ProductListFragment extends BaseFragment<ProductListPresenter> implements ProductListView,
-        ProductRecyclerViewAdapter.ProductRemovedListener {
+public class UserChatsFragment extends BaseFragment<UserChatsPresenter> implements UserChatsView,
+        UserChatsRecyclerViewAdapter.UserChatRemovedListener {
 
-    public interface ProductSelectedListener {
-        void productSelected(@NonNull String productId);
+    public interface UserChatSelectedListener {
+        void userChatSelected(@NonNull String userChat);
     }
 
-    public static ProductListFragment newInstance() {
-        return new ProductListFragment();
+    public static UserChatsFragment newInstance() {
+        return new UserChatsFragment();
     }
 
     @BindView(R.id.product_list)
@@ -37,12 +37,12 @@ public class ProductListFragment extends BaseFragment<ProductListPresenter> impl
     @BindView(R.id.progress)
     protected View progressLayout;
 
-    private ProductRecyclerViewAdapter productRecyclerViewAdapter;
-    private ProductSelectedListener productSelectedListener;
+    private UserChatsRecyclerViewAdapter userChatsRecyclerViewAdapter;
+    private UserChatSelectedListener userChatSelectedListener;
 
     @Override
-    public ProductListPresenter createPresenter() {
-        return new ProductListPresenter(this, Injection.provideProductRepository());
+    public UserChatsPresenter createPresenter() {
+        return new UserChatsPresenter(this, Injection.provideUserChatsRepository());
     }
 
     @Override
@@ -56,16 +56,16 @@ public class ProductListFragment extends BaseFragment<ProductListPresenter> impl
         View rootView = inflater.inflate(R.layout.fragment_product_list, container, false);
         ButterKnife.bind(this, rootView);
 
-        productRecyclerViewAdapter = new ProductRecyclerViewAdapter(new ArrayList<>(), productSelectedListener, this);
-        recyclerView.setAdapter(productRecyclerViewAdapter);
+        userChatsRecyclerViewAdapter = new UserChatsRecyclerViewAdapter(new ArrayList<>(), userChatSelectedListener, this);
+        recyclerView.setAdapter(userChatsRecyclerViewAdapter);
         return rootView;
     }
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (context instanceof ProductSelectedListener) {
-            productSelectedListener = (ProductSelectedListener) context;
+        if (context instanceof UserChatSelectedListener) {
+            userChatSelectedListener = (UserChatSelectedListener) context;
         } else {
             throw new RuntimeException(context.toString()
                     + " must implement UserChatSelectedListener");
@@ -75,12 +75,12 @@ public class ProductListFragment extends BaseFragment<ProductListPresenter> impl
     @Override
     public void onDetach() {
         super.onDetach();
-        productSelectedListener = null;
+        userChatSelectedListener = null;
     }
 
     @Override
-    public void setProducts(@NonNull List<Product> products) {
-        productRecyclerViewAdapter.setProducts(products);
+    public void setUserChats(@NonNull List<UserChat> userChats) {
+        userChatsRecyclerViewAdapter.setUserChats(userChats);
     }
 
     @Override
@@ -88,7 +88,7 @@ public class ProductListFragment extends BaseFragment<ProductListPresenter> impl
     }
 
     @Override
-    public void productRemoved(@NonNull Product product) {
-        getPresenter().removeProduct(product);
+    public void userChatRemoved(@NonNull UserChat userChat) {
+        getPresenter().removeUserChat(userChat);
     }
 }

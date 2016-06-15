@@ -6,6 +6,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -19,6 +20,7 @@ import android.widget.TextView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.mixailsednev.storeproject.R;
+import com.mixailsednev.storeproject.view.messages.userChat.UserChatsFragment;
 import com.mixailsednev.storeproject.view.product.details.ProductDetailFragment;
 import com.mixailsednev.storeproject.view.product.edit.ProductEditFragment;
 import com.mixailsednev.storeproject.view.product.list.ProductListFragment;
@@ -29,8 +31,10 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class MainActivity extends AppCompatActivity
-        implements ProductListFragment.ProductSelectedListener, Toolbar.OnMenuItemClickListener {
+public class MainActivity extends AppCompatActivity implements
+        ProductListFragment.ProductSelectedListener,
+        Toolbar.OnMenuItemClickListener,
+        UserChatsFragment.UserChatSelectedListener {
 
     private boolean twoPane;
     //TODO move to model view? / presenter
@@ -44,6 +48,9 @@ public class MainActivity extends AppCompatActivity
     @Nullable
     @BindView(R.id.detail_toolbar)
     protected Toolbar detailsToolbar;
+
+    @BindView(R.id.fab)
+    protected FloatingActionButton floatingActionButton;
 
     protected ImageView userPhotoImageView;
 
@@ -67,9 +74,8 @@ public class MainActivity extends AppCompatActivity
         }
 
         if (savedInstanceState == null) {
-            ProductListFragment fragment = ProductListFragment.newInstance();
             getSupportFragmentManager().beginTransaction()
-                    .add(R.id.main_container, fragment)
+                    .add(R.id.main_container, ProductListFragment.newInstance())
                     .commit();
         }
 
@@ -94,6 +100,20 @@ public class MainActivity extends AppCompatActivity
                 case R.id.sign_out:
                     FirebaseAuth.getInstance().signOut();
                     startActivity(new Intent(this, WelcomeActivity.class));
+                    return true;
+                case R.id.messages:
+                    getSupportFragmentManager().beginTransaction()
+                            .replace(R.id.main_container, UserChatsFragment.newInstance())
+                            .commit();
+                    drawerlayout.closeDrawers();
+                    floatingActionButton.hide();
+                    return true;
+                case R.id.products:
+                    getSupportFragmentManager().beginTransaction()
+                            .replace(R.id.main_container, ProductListFragment.newInstance())
+                            .commit();
+                    drawerlayout.closeDrawers();
+                    floatingActionButton.show();
                     return true;
                 default:
                     menuItem.setChecked(true);
@@ -147,6 +167,11 @@ public class MainActivity extends AppCompatActivity
 
             this.startActivity(intent);
         }
+    }
+
+    @Override
+    public void userChatSelected(@NonNull String userChat) {
+
     }
 
     private void newProduct() {

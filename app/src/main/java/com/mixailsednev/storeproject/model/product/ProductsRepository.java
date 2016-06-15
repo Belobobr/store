@@ -7,7 +7,7 @@ import com.mixailsednev.storeproject.model.common.BaseRepository;
 
 import java.util.List;
 
-public abstract class ProductRepository extends BaseRepository {
+public abstract class ProductsRepository extends BaseRepository {
 
     abstract public void removeProduct(@NonNull Product product);
 

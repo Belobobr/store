@@ -15,13 +15,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class FirebaseProductRepository extends ProductRepository {
+public class FirebaseProductsRepository extends ProductsRepository {
 
-    public static String TAG = FirebaseProductRepository.class.getSimpleName();
+    public static String TAG = FirebaseProductsRepository.class.getSimpleName();
 
-    private static ProductRepository instance = new FirebaseProductRepository();
+    private static ProductsRepository instance = new FirebaseProductsRepository();
 
-    public static ProductRepository getInstance() {
+    public static ProductsRepository getInstance() {
         return instance;
     }
 
@@ -30,7 +30,7 @@ public class FirebaseProductRepository extends ProductRepository {
     @NonNull
     private List<Product> products;
 
-    public FirebaseProductRepository() {
+    public FirebaseProductsRepository() {
         this.products = new ArrayList<>();
     }
 
@@ -48,7 +48,7 @@ public class FirebaseProductRepository extends ProductRepository {
                         product.setId(snapshot.getKey());
                         products.add(product);
                     }
-                    FirebaseProductRepository.this.products = products;
+                    FirebaseProductsRepository.this.products = products;
                     notifyDataChanged();
                 }
 

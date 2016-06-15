@@ -3,15 +3,19 @@
 
     <group android:id="@+id/grp1" android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_home"
+            android:id="@+id/news"
             android:icon="@drawable/ic_description_black_24px"
             android:title="@string/news" />
         <item
-            android:id="@+id/nav_about"
+            android:id="@+id/records"
             android:icon="@drawable/ic_gesture_black_24px"
             android:title="@string/records" />
         <item
-            android:id="@+id/nav_settings"
+            android:id="@+id/products"
+            android:icon="@drawable/ic_gesture_black_24px"
+            android:title="@string/products" />
+        <item
+            android:id="@+id/messages"
             android:icon="@drawable/ic_filter_list_black_24px"
             android:title="@string/messages" />
 
@@ -20,11 +24,11 @@
             android:title="@string/favorites">
             <menu>
                 <item
-                    android:id="@+id/navigation_sub_item_1"
+                    android:id="@+id/barbershop"
                     android:icon="@drawable/ic_gesture_black_24px"
                     android:title="@string/barbershop" />
                 <item
-                    android:id="@+id/navigation_sub_item_2"
+                    android:id="@+id/clinic"
                     android:icon="@drawable/ic_gesture_black_24px"
                     android:title="@string/clinic" />
             </menu>

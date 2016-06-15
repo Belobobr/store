@@ -6,7 +6,7 @@ import android.util.Log;
 
 import com.mixailsednev.storeproject.model.common.CompositeDataChangeListener;
 import com.mixailsednev.storeproject.model.product.Product;
-import com.mixailsednev.storeproject.model.product.ProductRepository;
+import com.mixailsednev.storeproject.model.product.ProductsRepository;
 import com.mixailsednev.storeproject.view.common.BasePresenter;
 import com.mixailsednev.storeproject.view.product.edit.ProductEditContract.ActionsListener;
 import com.mixailsednev.storeproject.view.product.edit.ProductEditContract.ProductEditView;
@@ -17,16 +17,16 @@ public class ProductEditPresenter extends BasePresenter<ProductEditView>
     public static final String TAG = ProductEditPresenter.class.getSimpleName();
 
     @NonNull
-    ProductRepository productRepository;
+    ProductsRepository productsRepository;
 
     @Nullable
     String productId;
 
     public ProductEditPresenter(@Nullable String productId,
                                 @NonNull ProductEditView productEditView,
-                                @NonNull ProductRepository productRepository) {
+                                @NonNull ProductsRepository productsRepository) {
         super(productEditView);
-        this.productRepository = productRepository;
+        this.productsRepository = productsRepository;
         this.productId = productId;
     }
 
@@ -34,8 +34,8 @@ public class ProductEditPresenter extends BasePresenter<ProductEditView>
     public void subscribeToDataStoreInternal(@NonNull CompositeDataChangeListener compositeDataChangeListener
     ) {
         if (productId != null) {
-            compositeDataChangeListener.addListener(productRepository, () -> {
-                Product product = productRepository.getProduct(productId);
+            compositeDataChangeListener.addListener(productsRepository, () -> {
+                Product product = productsRepository.getProduct(productId);
                 if (product == null) {
                     Log.e(TAG, "Product with id: " + productId + " not found");
                 } else {
@@ -48,9 +48,9 @@ public class ProductEditPresenter extends BasePresenter<ProductEditView>
     @Override
     public void saveProduct(@NonNull Product product) {
         if (product.getId() == null) {
-            productRepository.addProduct(product);
+            productsRepository.addProduct(product);
         } else {
-            productRepository.updateProduct(product);
+            productsRepository.updateProduct(product);
         }
     }
 }
