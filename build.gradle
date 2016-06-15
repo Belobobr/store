@@ -39,4 +39,6 @@ ext {
     RxJavaVersion = '1.1.3'
     butterKnifeVersion = '8.0.1'
     firebase = '9.0.2'
+    glide ='3.6.0'
+    jackson = '2.7.2'
 }

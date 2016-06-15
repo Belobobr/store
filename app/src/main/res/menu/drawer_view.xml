@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:id="@+id/grp1" android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_home"
+            android:icon="@drawable/ic_description_black_24px"
+            android:title="@string/news" />
+        <item
+            android:id="@+id/nav_about"
+            android:icon="@drawable/ic_gesture_black_24px"
+            android:title="@string/records" />
+        <item
+            android:id="@+id/nav_settings"
+            android:icon="@drawable/ic_filter_list_black_24px"
+            android:title="@string/messages" />
+
+        <item
+            android:id="@+id/navigation_subheader"
+            android:title="@string/favorites">
+            <menu>
+                <item
+                    android:id="@+id/navigation_sub_item_1"
+                    android:icon="@drawable/ic_gesture_black_24px"
+                    android:title="@string/barbershop" />
+                <item
+                    android:id="@+id/navigation_sub_item_2"
+                    android:icon="@drawable/ic_gesture_black_24px"
+                    android:title="@string/clinic" />
+            </menu>
+        </item>
+    </group>
+
+    <group android:id="@+id/grp2" android:checkableBehavior="single" >
+        <item
+            android:id="@+id/sign_out"
+            android:icon="@drawable/ic_gesture_black_24px"
+            android:title="@string/sign_out" />
+    </group>
+
+</menu>

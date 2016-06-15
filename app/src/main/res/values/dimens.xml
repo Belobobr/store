@@ -14,4 +14,12 @@
   <dimen name="one_line_list_item">56dp</dimen>
   <dimen name="two_line_list_item">72dp</dimen>
   <dimen name="two_line_list_item_content_margin">24dp</dimen>
+
+  <dimen name="navdrawer_image_height">192dp</dimen>
+  <dimen name="navdrawer_user_picture_size">40dp</dimen>
+
+  <dimen name="margin_user_name">3dp</dimen>
+  <dimen name="margin_user_email">20dp</dimen>
+  <dimen name="profile_image_size">72dp</dimen>
+  <dimen name="profile_image_margin_top">40dp</dimen>
 </resources>
