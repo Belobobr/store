@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 
 import com.mixailsednev.storeproject.Injection;
 import com.mixailsednev.storeproject.R;
@@ -19,6 +20,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class ChatFragment extends BaseFragment<ChatPresenter> implements ChatContract.ChatView {
 
@@ -40,8 +42,11 @@ public class ChatFragment extends BaseFragment<ChatPresenter> implements ChatCon
     protected RecyclerView recyclerView;
     @BindView(R.id.progress)
     protected View progressLayout;
+    @BindView(R.id.message)
+    protected EditText messageEditText;
 
     private ChatRecyclerViewAdapter chatRecyclerViewAdapter;
+    private LinearLayoutManager linearLayoutManager;
 
     @Override
     public ChatPresenter createPresenter() {
@@ -69,7 +74,7 @@ public class ChatFragment extends BaseFragment<ChatPresenter> implements ChatCon
         ButterKnife.bind(this, rootView);
 
         chatRecyclerViewAdapter = new ChatRecyclerViewAdapter(new ArrayList<>());
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
+        linearLayoutManager = new LinearLayoutManager(getContext());
         linearLayoutManager.setStackFromEnd(true);
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setAdapter(chatRecyclerViewAdapter);
@@ -82,6 +87,21 @@ public class ChatFragment extends BaseFragment<ChatPresenter> implements ChatCon
 
     @Override
     public void setMessages(@NonNull List<Message> messages) {
+        int messageCount = chatRecyclerViewAdapter.getItemCount();
+        int lastVisiblePosition =
+                linearLayoutManager.findLastCompletelyVisibleItemPosition();
+        boolean scrollToLastMessage = lastVisiblePosition == messageCount - 1;
+
         chatRecyclerViewAdapter.setMessages(messages);
+
+        if (scrollToLastMessage) {
+            recyclerView.scrollToPosition(chatRecyclerViewAdapter.getItemCount() - 1);
+        }
+    }
+
+    @OnClick(R.id.send)
+    protected void onSendButtonClick() {
+        getPresenter().addMessage(messageEditText.getText().toString());
+        messageEditText.setText("");
     }
 }

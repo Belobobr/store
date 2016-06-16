@@ -13,5 +13,6 @@ public class ChatContract {
     }
 
     public interface ActionsListener {
+        void addMessage(@NonNull String messageContent);
     }
 }

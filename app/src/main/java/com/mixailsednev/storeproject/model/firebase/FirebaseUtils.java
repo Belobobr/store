@@ -1,5 +1,6 @@
 package com.mixailsednev.storeproject.model.firebase;
 
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -31,6 +32,7 @@ public class FirebaseUtils {
         return null;
     }
 
+
     public static DatabaseReference getProductsRef() {
         return getBaseRef().child("products");
     }
@@ -39,16 +41,13 @@ public class FirebaseUtils {
         return "products/";
     }
 
-    public static String getUsersPath() {
-        return "users/";
-    }
-
-    public static DatabaseReference geUsersRef() {
-        return getBaseRef().child("users");
-    }
 
     public static DatabaseReference getChatsRef() {
         return getBaseRef().child("chats");
+    }
+
+    public static DatabaseReference getChatRef(@NonNull String chatId) {
+        return getChatsRef().child(chatId);
     }
 
 }

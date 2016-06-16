@@ -6,12 +6,15 @@ import android.util.Log;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
 import com.mixailsednev.storeproject.model.firebase.FirebaseUtils;
 import com.mixailsednev.storeproject.model.messages.userChat.UserChat;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class FirebaseChatRepository extends ChatRepository {
 
@@ -88,7 +91,32 @@ public class FirebaseChatRepository extends ChatRepository {
     }
 
 
-    public void addMessage(@NonNull Message message) {
+    public void addMessage(@NonNull String messageContent) {
+        String currentUserId = FirebaseUtils.getCurrentUserId();
 
+        if (currentUserId != null) {
+            Message message = new Message();
+            message.setContent(messageContent);
+            message.setOwner(currentUserId);
+
+            FirebaseUtils.getChatsRef().child(chatId).child("messages").push().setValue(message, (databaseError, databaseReference) -> {
+                if (databaseError != null) {
+                    Log.e(TAG, "Error add message to chat: " + databaseError.getMessage());
+                }
+            });
+
+            DatabaseReference currentUserRef = FirebaseUtils.getCurrentUserRef();
+            if (currentUserRef != null) {
+                Map<String, Object> userChatValues = new HashMap<>();
+                userChatValues.put("lastMessage", message.getContent());
+                currentUserRef.child("chats").child(chatId).updateChildren(userChatValues, (databaseError, databaseReference) -> {
+                    if (databaseError != null) {
+                        Log.e(TAG, "Error update user chat: " + databaseError.getMessage());
+                    }
+                });
+            }
+        } else {
+            Log.e(TAG, "Not authorized users can't create messages");
+        }
     }
 }

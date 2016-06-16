@@ -16,5 +16,5 @@ public abstract class ChatRepository extends BaseRepository {
     @Nullable
     abstract public UserChat getMessage(@NonNull String messageId);
 
-    abstract public void addMessage(@NonNull Message message);
+    abstract public void addMessage(@NonNull String messageContent);
 }

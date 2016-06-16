@@ -18,8 +18,10 @@ public class Message {
     public Message() {
     }
 
-    public Message(@Nullable String id) {
+    public Message(@Nullable String id, @NonNull String content, @NonNull String owner) {
         this.id = id;
+        this.content = content;
+        this.owner = owner;
     }
 
     @Nullable
@@ -31,19 +33,21 @@ public class Message {
         this.id = id;
     }
 
+    @NonNull
     public String getContent() {
         return content;
     }
 
-    public void setContent(String content) {
+    public void setContent(@NonNull String content) {
         this.content = content;
     }
 
+    @NonNull
     public String getOwner() {
         return owner;
     }
 
-    public void setOwner(String owner) {
+    public void setOwner(@NonNull String owner) {
         this.owner = owner;
     }
 }

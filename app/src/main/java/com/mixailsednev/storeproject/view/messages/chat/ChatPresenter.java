@@ -4,6 +4,7 @@ import android.support.annotation.NonNull;
 
 import com.mixailsednev.storeproject.model.common.CompositeDataChangeListener;
 import com.mixailsednev.storeproject.model.messages.chat.ChatRepository;
+import com.mixailsednev.storeproject.model.messages.chat.Message;
 import com.mixailsednev.storeproject.view.common.BasePresenter;
 
 public class ChatPresenter extends BasePresenter<ChatContract.ChatView>
@@ -25,6 +26,11 @@ public class ChatPresenter extends BasePresenter<ChatContract.ChatView>
                 chatRepository,
                 () -> getView().setMessages(chatRepository.getMessages())
         );
+    }
+
+    @Override
+    public void addMessage(@NonNull String messageContent) {
+        chatRepository.addMessage(messageContent);
     }
 }
 
