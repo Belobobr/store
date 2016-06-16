@@ -9,7 +9,7 @@ import java.util.List;
 public class UserChatsContract {
 
     public interface UserChatsView {
-        void setUserChats(@NonNull List<UserChat> userChatsx);
+        void setUserChats(@NonNull List<UserChat> userChats);
     }
 
     public interface ActionsListener {

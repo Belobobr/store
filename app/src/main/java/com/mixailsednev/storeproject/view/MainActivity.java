@@ -20,6 +20,8 @@ import android.widget.TextView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.mixailsednev.storeproject.R;
+import com.mixailsednev.storeproject.view.messages.chat.ChatActivity;
+import com.mixailsednev.storeproject.view.messages.chat.ChatFragment;
 import com.mixailsednev.storeproject.view.messages.userChat.UserChatsFragment;
 import com.mixailsednev.storeproject.view.product.details.ProductDetailFragment;
 import com.mixailsednev.storeproject.view.product.edit.ProductEditFragment;
@@ -170,8 +172,17 @@ public class MainActivity extends AppCompatActivity implements
     }
 
     @Override
-    public void userChatSelected(@NonNull String userChat) {
+    public void userChatSelected(@NonNull String userChatID) {
+        if (twoPane) {
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.details_container, ProductDetailFragment.newInstance(userChatID))
+                    .commit();
+        } else {
+            Intent intent = new Intent(this, ChatActivity.class);
+            intent.putExtra(ChatFragment.ARG_CHAT_ID, userChatID);
 
+            this.startActivity(intent);
+        }
     }
 
     private void newProduct() {

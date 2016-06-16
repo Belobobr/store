@@ -11,16 +11,16 @@ public class UserChat {
     private String id;
     private String name;
     private String lastMessage;
-    private Long lastMesageTime;
+    private Long lastMessageTime;
 
     public UserChat() {
     }
 
-    public UserChat(@Nullable String id, String name, String lastMessage, Long lastMesageTime) {
+    public UserChat(@Nullable String id, String name, String lastMessage, Long lastMessageTime) {
         this.id = id;
         this.name = name;
         this.lastMessage = lastMessage;
-        this.lastMesageTime = lastMesageTime;
+        this.lastMessageTime = lastMessageTime;
     }
 
     @Nullable
@@ -48,11 +48,11 @@ public class UserChat {
         this.lastMessage = lastMessage;
     }
 
-    public Long getLastMesageTime() {
-        return lastMesageTime;
+    public Long getLastMessageTime() {
+        return lastMessageTime;
     }
 
-    public void setLastMesageTime(Long lastMesageTime) {
-        this.lastMesageTime = lastMesageTime;
+    public void setLastMessageTime(Long lastMessageTime) {
+        this.lastMessageTime = lastMessageTime;
     }
 }

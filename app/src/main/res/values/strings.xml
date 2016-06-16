@@ -1,33 +1,34 @@
 <resources>
-  <string name="app_name">StoreProject</string>
-  <string name="title_product_detail">Product Detail</string>
-  <string name="search">Search</string>
-  <string name="help">Help</string>
-  <string name="complete">Complete</string>
-  <string name="open_navigation_drawer">Open menu</string>
-  <string name="close_navigation_drawer">Close menu</string>
-  <string name="products">Products</string>
-  <string name="name">Name</string>
-  <string name="cost">Cost</string>
-  <string name="description">Description</string>
-  <string name="remove">Remove</string>
+    <string name="app_name">StoreProject</string>
+    <string name="title_product_detail">Product Detail</string>
+    <string name="search">Search</string>
+    <string name="help">Help</string>
+    <string name="complete">Complete</string>
+    <string name="open_navigation_drawer">Open menu</string>
+    <string name="close_navigation_drawer">Close menu</string>
+    <string name="products">Products</string>
+    <string name="chat">Chat</string>
+    <string name="name">Name</string>
+    <string name="cost">Cost</string>
+    <string name="description">Description</string>
+    <string name="remove">Remove</string>
 
-  <string name="welcome_screen_text">Welcome to Services</string>
-  <string name="explore_button_text">explore</string>
-  <string name="google_sign_in">google sign-in</string>
-  <string name="signing_in">Signing in...</string>
-  <string name="sign_out">Sign out</string>
+    <string name="welcome_screen_text">Welcome to Services</string>
+    <string name="explore_button_text">explore</string>
+    <string name="google_sign_in">google sign-in</string>
+    <string name="signing_in">Signing in...</string>
+    <string name="sign_out">Sign out</string>
 
-  <string name="cd_navdrawer_image">Navigation Drawer Image</string>
-  <string name="cd_navdrawer_user_picture">User Profile Image</string>
+    <string name="cd_navdrawer_image">Navigation Drawer Image</string>
+    <string name="cd_navdrawer_user_picture">User Profile Image</string>
 
-  <string name="news">News</string>
-  <string name="records">Records</string>
-  <string name="messages">Messages</string>
+    <string name="news">News</string>
+    <string name="records">Records</string>
+    <string name="messages">Messages</string>
 
-  <string name="favorites">Favorites</string>
-  <string name="barbershop">Barbershop</string>
-  <string name="clinic">Clinic</string>
+    <string name="favorites">Favorites</string>
+    <string name="barbershop">Barbershop</string>
+    <string name="clinic">Clinic</string>
 </resources>
 
 

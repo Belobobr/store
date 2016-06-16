@@ -36,6 +36,16 @@
           android:value=".view.MainActivity"/>
     </activity>
 
+    <activity
+        android:name=".view.messages.chat.ChatActivity"
+        android:label="@string/chat"
+        android:parentActivityName=".view.MainActivity"
+        android:theme="@style/AppTheme.NoActionBar">
+      <meta-data
+          android:name="android.support.PARENT_ACTIVITY"
+          android:value=".view.MainActivity"/>
+    </activity>
+
   </application>
 
 </manifest>

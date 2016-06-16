@@ -47,7 +47,7 @@ public class UserChatsRecyclerViewAdapter extends RecyclerView.Adapter<UserChats
         holder.userChat = userChat;
         holder.chatNameTextView.setText(userChat.getName());
         holder.chatLastMessageTextView.setText(userChat.getLastMessage());
-        holder.chatLastMessageTimeTextView.setText(userChat.getLastMesageTime().toString());
+        holder.chatLastMessageTimeTextView.setText(userChat.getLastMessageTime().toString());
 
         holder.view.setOnClickListener((view) -> {
             userChatSelectedListener.userChatSelected(holder.userChat.getId());

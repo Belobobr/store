@@ -25,14 +25,14 @@ public class UserChatsFragment extends BaseFragment<UserChatsPresenter> implemen
         UserChatsRecyclerViewAdapter.UserChatRemovedListener {
 
     public interface UserChatSelectedListener {
-        void userChatSelected(@NonNull String userChat);
+        void userChatSelected(@NonNull String userChatID);
     }
 
     public static UserChatsFragment newInstance() {
         return new UserChatsFragment();
     }
 
-    @BindView(R.id.product_list)
+    @BindView(R.id.user_chats_list)
     protected RecyclerView recyclerView;
     @BindView(R.id.progress)
     protected View progressLayout;
@@ -53,7 +53,7 @@ public class UserChatsFragment extends BaseFragment<UserChatsPresenter> implemen
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_product_list, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_user_chats, container, false);
         ButterKnife.bind(this, rootView);
 
         userChatsRecyclerViewAdapter = new UserChatsRecyclerViewAdapter(new ArrayList<>(), userChatSelectedListener, this);
