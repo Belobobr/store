@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <com.mixailsednev.storeproject.view.custom.FixedAspectRatioFrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:aspectRatioHeight="9"
+            app:aspectRatioWidth="16">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                android:src="@drawable/details_image" />
+
+        </com.mixailsednev.storeproject.view.custom.FixedAspectRatioFrameLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/white"
+            android:elevation="2dp"
+            android:orientation="vertical">
+
+            <com.mixailsednev.storeproject.view.company.info.CompanyInfoView
+                android:id="@+id/company_info"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <Button
+                style="@style/Button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/large_content_margin"
+                android:layout_marginLeft="@dimen/horizontal_content_margin"
+                android:layout_marginRight="@dimen/horizontal_content_margin"
+                android:background="@drawable/primary_color_button"
+                android:text="@string/sign_up" />
+
+            <RatingBar
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="@dimen/large_content_margin"
+                android:numStars="5"
+                android:stepSize="10" />
+
+        </LinearLayout>
+
+        <com.mixailsednev.storeproject.view.common.CommentView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/large_content_margin" />
+
+        <com.mixailsednev.storeproject.view.common.CommentView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/large_content_margin" />
+
+    </LinearLayout>
+
+</ScrollView>

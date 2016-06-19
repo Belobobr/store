@@ -56,7 +56,7 @@ public class ChatRecyclerViewAdapter extends RecyclerView.Adapter<ChatRecyclerVi
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        @BindView(R.id.message)
+        @BindView(R.id.comment_message)
         public TextView messageTextView;
         @BindView(R.id.message_container)
         public RelativeLayout messageContainer;

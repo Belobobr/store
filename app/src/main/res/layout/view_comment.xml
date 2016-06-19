@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:elevation="2dp"
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/large_content_margin"
+    android:paddingLeft="@dimen/horizontal_content_margin"
+    android:paddingRight="@dimen/horizontal_content_margin"
+    android:paddingTop="@dimen/large_content_margin">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/comment_author_image"
+            android:layout_width="@dimen/avatar_size"
+            android:layout_height="@dimen/avatar_size"
+            android:src="@drawable/afro" />
+
+        <TextView
+            android:id="@+id/comment_author_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/large_content_margin"
+            android:layout_toRightOf="@id/comment_author_image"
+            android:text="Михаил Седнев" />
+
+        <TextView
+            android:id="@+id/comment_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/comment_author_name"
+            android:layout_marginLeft="@dimen/large_content_margin"
+            android:layout_toRightOf="@id/comment_author_image"
+            android:text="23.05.1990" />
+
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/comment_message"
+        style="@style/TextAppearance.ListItem.MainText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/large_content_margin"
+        android:text="Постоянно стригусь у Марии Шараповой. Лучший парикмахер в мире!" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/large_content_margin"
+        android:gravity="right"
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:id="@+id/like_comment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:src="@drawable/ic_like" />
+
+    </LinearLayout>
+
+
+</LinearLayout>

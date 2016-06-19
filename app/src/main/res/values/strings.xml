@@ -18,17 +18,23 @@
     <string name="google_sign_in">google sign-in</string>
     <string name="signing_in">Signing in...</string>
     <string name="sign_out">Sign out</string>
+    <string name="sign_up">Sign up</string>
 
     <string name="cd_navdrawer_image">Navigation Drawer Image</string>
     <string name="cd_navdrawer_user_picture">User Profile Image</string>
 
-    <string name="news">News</string>
     <string name="records">Records</string>
     <string name="messages">Messages</string>
 
     <string name="favorites">Favorites</string>
     <string name="barbershop">Barbershop</string>
     <string name="clinic">Clinic</string>
+
+    <string name="info">Info</string>
+    <string name="services">Services</string>
+    <string name="opinion">Opinion</string>
+    <string name="news">News</string>
+    <string name="show_info">Show info</string>
 </resources>
 
 

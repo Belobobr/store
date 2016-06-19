@@ -8,6 +8,8 @@
   <dimen name="right_panel_width">512dp</dimen>
   <dimen name="horizontal_content_margin">16dp</dimen>
   <dimen name="content_margin">8dp</dimen>
+  <dimen name="large_content_margin">16dp</dimen>
+  <dimen name="extra_large_content_margin">24dp</dimen>
   <dimen name="item_margin">72dp</dimen>
   <dimen name="avatar_size">40dp</dimen>
   <dimen name="icon_size">24dp</dimen>

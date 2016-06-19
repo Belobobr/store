@@ -3,6 +3,7 @@ package com.mixailsednev.storeproject.view;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -20,6 +21,7 @@ import android.widget.TextView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.mixailsednev.storeproject.R;
+import com.mixailsednev.storeproject.view.company.CompanyFragment;
 import com.mixailsednev.storeproject.view.messages.chat.ChatActivity;
 import com.mixailsednev.storeproject.view.messages.chat.ChatFragment;
 import com.mixailsednev.storeproject.view.messages.userChat.UserChatsFragment;
@@ -36,7 +38,9 @@ import butterknife.OnClick;
 public class MainActivity extends AppCompatActivity implements
         ProductListFragment.ProductSelectedListener,
         Toolbar.OnMenuItemClickListener,
-        UserChatsFragment.UserChatSelectedListener {
+        UserChatsFragment.UserChatSelectedListener,
+        NavigationView.OnNavigationItemSelectedListener
+{
 
     private boolean twoPane;
     //TODO move to model view? / presenter
@@ -44,12 +48,21 @@ public class MainActivity extends AppCompatActivity implements
     private String selectedProductId;
     private ActionBarDrawerToggle drawerToggle;
 
+    @BindView(R.id.drawer_layout)
+    protected DrawerLayout drawerlayout;
+
     @BindView(R.id.navigation_view)
     protected NavigationView navigationView;
 
     @Nullable
     @BindView(R.id.detail_toolbar)
     protected Toolbar detailsToolbar;
+
+    @BindView(R.id.main_toolbar)
+    protected Toolbar mainToolbar;
+
+    @BindView(R.id.app_bar)
+    protected View appBar;
 
     @BindView(R.id.fab)
     protected FloatingActionButton floatingActionButton;
@@ -68,8 +81,6 @@ public class MainActivity extends AppCompatActivity implements
         userPhotoImageView = ButterKnife.findById(navigationView.getHeaderView(0), R.id.user_photo);
         userNameTextView = ButterKnife.findById(navigationView.getHeaderView(0), R.id.user_name);
         userEmailTextView = ButterKnife.findById(navigationView.getHeaderView(0), R.id.user_email);
-        Toolbar mainToolbar = (Toolbar) findViewById(R.id.main_toolbar);
-        DrawerLayout drawerlayout = (DrawerLayout) findViewById(R.id.drawer_layout);
 
         if (findViewById(R.id.details_container) != null) {
             twoPane = true;
@@ -81,10 +92,6 @@ public class MainActivity extends AppCompatActivity implements
                     .commit();
         }
 
-        mainToolbar.inflateMenu(R.menu.main_menu);
-        mainToolbar.setTitle(getString(R.string.products));
-        mainToolbar.setNavigationIcon(R.drawable.ic_menu);
-
         drawerToggle = new ActionBarDrawerToggle(this, drawerlayout, mainToolbar,
                 R.string.open_navigation_drawer, R.string.close_navigation_drawer) {
         };
@@ -94,36 +101,10 @@ public class MainActivity extends AppCompatActivity implements
         if (detailsToolbar != null) {
             detailsToolbar.setOnMenuItemClickListener(this);
         }
-        updateDetailsMenu();
+
+        navigationView.setNavigationItemSelectedListener(this);
+        updateAppBar();
         updateUserInfo();
-
-        navigationView.setNavigationItemSelectedListener((menuItem) -> {
-            switch (menuItem.getItemId()) {
-                case R.id.sign_out:
-                    FirebaseAuth.getInstance().signOut();
-                    startActivity(new Intent(this, WelcomeActivity.class));
-                    return true;
-                case R.id.messages:
-                    getSupportFragmentManager().beginTransaction()
-                            .replace(R.id.main_container, UserChatsFragment.newInstance())
-                            .commit();
-                    drawerlayout.closeDrawers();
-                    floatingActionButton.hide();
-                    return true;
-                case R.id.products:
-                    getSupportFragmentManager().beginTransaction()
-                            .replace(R.id.main_container, ProductListFragment.newInstance())
-                            .commit();
-                    drawerlayout.closeDrawers();
-                    floatingActionButton.show();
-                    return true;
-                default:
-                    menuItem.setChecked(true);
-                    drawerlayout.closeDrawers();
-                    return true;
-            }
-
-        });
     }
 
     @OnClick(R.id.fab)
@@ -134,6 +115,44 @@ public class MainActivity extends AppCompatActivity implements
             Intent intent = new Intent(MainActivity.this, ProductDetailActivity.class);
             MainActivity.this.startActivity(intent);
         }
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(MenuItem menuItem) {
+        switch (menuItem.getItemId()) {
+            case R.id.sign_out:
+                FirebaseAuth.getInstance().signOut();
+                startActivity(new Intent(this, WelcomeActivity.class));
+                return true;
+            case R.id.messages:
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.main_container, UserChatsFragment.newInstance())
+                        .commit();
+                drawerlayout.closeDrawers();
+                updateAppBar();
+                floatingActionButton.hide();
+                return true;
+            case R.id.products:
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.main_container, ProductListFragment.newInstance())
+                        .commit();
+                drawerlayout.closeDrawers();
+                updateAppBar();
+                floatingActionButton.show();
+                return true;
+            case R.id.barbershop:
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.main_container, CompanyFragment.newInstance("FAHAH"), CompanyFragment.TAG)
+                        .commit();
+                drawerlayout.closeDrawers();
+                updateAppBar();
+                floatingActionButton.hide();
+            default:
+                menuItem.setChecked(true);
+                drawerlayout.closeDrawers();
+                return true;
+        }
+
     }
 
     @Override
@@ -196,7 +215,7 @@ public class MainActivity extends AppCompatActivity implements
                 .addToBackStack(null)
                 .commit();
 
-        updateDetailsMenu();
+        updateDetailsToolbar();
     }
 
     private void editProductComplete() {
@@ -205,10 +224,10 @@ public class MainActivity extends AppCompatActivity implements
         }
 
         getSupportFragmentManager().popBackStack();
-        updateDetailsMenu();
+        updateDetailsToolbar();
     }
 
-    private void updateDetailsMenu() {
+    private void updateDetailsToolbar() {
         getSupportFragmentManager().executePendingTransactions();
 
         int menuRes = inEditMode() ? R.menu.edit_menu_menu : R.menu.details_menu;
@@ -218,6 +237,22 @@ public class MainActivity extends AppCompatActivity implements
             detailsToolbar.inflateMenu(menuRes);
         }
     }
+
+    private void updateAppBar() {
+        getSupportFragmentManager().executePendingTransactions();
+
+        mainToolbar.getMenu().clear();
+        mainToolbar.inflateMenu(R.menu.main_menu);
+        mainToolbar.setTitle(getString(R.string.products));
+        mainToolbar.setNavigationIcon(R.drawable.ic_menu);
+
+        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            appBar.setElevation(hasTabs() ? 0 : 4);
+        }
+
+        updateDetailsToolbar();
+    }
+
 
     private void updateUserInfo() {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
@@ -234,6 +269,10 @@ public class MainActivity extends AppCompatActivity implements
             }
 
         }
+    }
+
+    private boolean hasTabs() {
+        return getSupportFragmentManager().findFragmentByTag(CompanyFragment.TAG) != null;
     }
 
     private boolean inEditMode() {

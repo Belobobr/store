@@ -42,7 +42,7 @@ public class ChatFragment extends BaseFragment<ChatPresenter> implements ChatCon
     protected RecyclerView recyclerView;
     @BindView(R.id.progress)
     protected View progressLayout;
-    @BindView(R.id.message)
+    @BindView(R.id.comment_message)
     protected EditText messageEditText;
 
     private ChatRecyclerViewAdapter chatRecyclerViewAdapter;
