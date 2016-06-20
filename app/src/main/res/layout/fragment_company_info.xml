@@ -43,7 +43,7 @@
                 android:layout_marginLeft="@dimen/horizontal_content_margin"
                 android:layout_marginRight="@dimen/horizontal_content_margin"
                 android:background="@drawable/primary_color_button"
-                android:text="@string/sign_up" />
+                android:text="@string/send_message" />
 
             <RatingBar
                 android:layout_width="wrap_content"
@@ -58,12 +58,16 @@
         <com.mixailsednev.storeproject.view.common.CommentView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/large_content_margin" />
+            android:layout_marginTop="@dimen/large_content_margin"
+            android:background="@android:color/white"
+            android:elevation="2dp" />
 
         <com.mixailsednev.storeproject.view.common.CommentView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/large_content_margin" />
+            android:layout_marginTop="@dimen/large_content_margin"
+            android:background="@android:color/white"
+            android:elevation="2dp" />
 
     </LinearLayout>
 

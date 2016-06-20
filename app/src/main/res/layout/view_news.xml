@@ -13,37 +13,37 @@
         android:layout_height="wrap_content">
 
         <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/comment_author_image"
+            android:id="@+id/news_author_image"
             android:layout_width="@dimen/avatar_size"
             android:layout_height="@dimen/avatar_size"
             android:src="@drawable/afro" />
 
         <TextView
-            android:id="@+id/comment_author_name"
+            android:id="@+id/news_author_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/large_content_margin"
-            android:layout_toRightOf="@id/comment_author_image"
-            android:text="Михаил Седнев" />
+            android:layout_toRightOf="@id/news_author_image"
+            android:text="Шарм" />
 
         <TextView
-            android:id="@+id/comment_date"
+            android:id="@+id/news_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/comment_author_name"
+            android:layout_below="@id/news_author_name"
             android:layout_marginLeft="@dimen/large_content_margin"
-            android:layout_toRightOf="@id/comment_author_image"
+            android:layout_toRightOf="@id/news_author_image"
             android:text="23.05.1990" />
 
     </RelativeLayout>
 
     <TextView
-        android:id="@+id/comment_message"
+        android:id="@+id/news_message"
         style="@style/TextAppearance.ListItem.MainText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/large_content_margin"
-        android:text="Постоянно стригусь у Марии Шараповой. Лучший парикмахер в мире!" />
+        android:text="У нас появился новый парикмахер,  скидка 50% на его работу =)" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -53,7 +53,15 @@
         android:orientation="horizontal">
 
         <ImageButton
-            android:id="@+id/like_comment"
+            android:id="@+id/view_news_comments"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/large_content_margin"
+            android:background="@android:color/transparent"
+            android:src="@drawable/ic_comments" />
+
+        <ImageButton
+            android:id="@+id/like_news"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@android:color/transparent"

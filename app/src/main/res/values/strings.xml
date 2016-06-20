@@ -19,6 +19,7 @@
     <string name="signing_in">Signing in...</string>
     <string name="sign_out">Sign out</string>
     <string name="sign_up">Sign up</string>
+    <string name="send_message">Send message</string>
 
     <string name="cd_navdrawer_image">Navigation Drawer Image</string>
     <string name="cd_navdrawer_user_picture">User Profile Image</string>

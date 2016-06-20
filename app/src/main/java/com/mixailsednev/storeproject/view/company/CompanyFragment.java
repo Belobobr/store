@@ -13,6 +13,8 @@ import android.view.ViewGroup;
 
 import com.mixailsednev.storeproject.R;
 import com.mixailsednev.storeproject.view.company.info.CompanyInfoFragment;
+import com.mixailsednev.storeproject.view.company.news.NewsFragment;
+import com.mixailsednev.storeproject.view.company.services.ServicesFragment;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -73,8 +75,17 @@ public class CompanyFragment extends Fragment {
         }
 
         @Override
-        public Fragment getItem(int i) {
-            return CompanyInfoFragment.newInstance(companyId);
+        public Fragment getItem(int position) {
+            switch (position) {
+                case 0:
+                    return CompanyInfoFragment.newInstance(companyId);
+                case 1:
+                    return ServicesFragment.newInstance(companyId);
+                case 2:
+                    return NewsFragment.newInstance(companyId);
+                default:
+                    return null;
+            }
         }
 
         @Override
