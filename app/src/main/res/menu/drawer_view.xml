@@ -11,9 +11,9 @@
             android:icon="@drawable/ic_gesture_black_24px"
             android:title="@string/records" />
         <item
-            android:id="@+id/products"
+            android:id="@+id/companies"
             android:icon="@drawable/ic_gesture_black_24px"
-            android:title="@string/products" />
+            android:title="@string/companies" />
         <item
             android:id="@+id/messages"
             android:icon="@drawable/ic_filter_list_black_24px"

@@ -1,4 +1,4 @@
-package com.mixailsednev.storeproject.view.company.services;
+package com.mixailsednev.storeproject.view.company.list;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.mixailsednev.storeproject.R;
+import com.mixailsednev.storeproject.model.company.Company;
 import com.mixailsednev.storeproject.model.company.services.Service;
 
 import java.util.List;
@@ -17,62 +18,62 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class ServicesRecyclerViewAdapter extends RecyclerView.Adapter<ServicesRecyclerViewAdapter.ViewHolder> {
+public class CompaniesRecyclerViewAdapter extends RecyclerView.Adapter<CompaniesRecyclerViewAdapter.ViewHolder> {
 
-    private static String TAG = ServicesRecyclerViewAdapter.class.getSimpleName();
+    private static String TAG = CompaniesRecyclerViewAdapter.class.getSimpleName();
 
-    public interface ServiceSelectedListener {
-        void serviceSelected(@NonNull String serviceId);
+    public interface CompanySelectedListener {
+        void companySelected(@NonNull String companyId);
     }
 
-    private List<Service> services;
-    private ServiceSelectedListener serviceSelectedListener;
+    private List<Company> companies;
+    private CompanySelectedListener companySelectedListener;
 
-    public ServicesRecyclerViewAdapter(List<Service> services, ServiceSelectedListener serviceSelectedListener) {
-        this.services = services;
-        this.serviceSelectedListener = serviceSelectedListener;
+    public CompaniesRecyclerViewAdapter(List<Company> companies, CompanySelectedListener companySelectedListener) {
+        this.companies = companies;
+        this.companySelectedListener = companySelectedListener;
     }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.item_list_service, parent, false);
+                .inflate(R.layout.item_list_company, parent, false);
         return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
-        holder.service = services.get(position);
-        holder.serviceName.setText(services.get(position).getName());
+        holder.company = companies.get(position);
+        holder.companyName.setText(companies.get(position).getName());
 
         holder.view.setOnClickListener((view) -> {
-            if (holder.service.getId() != null) {
-                serviceSelectedListener.serviceSelected(holder.service.getId());
+            if (holder.company.getId() != null) {
+                companySelectedListener.companySelected(holder.company.getId());
             } else {
                 Log.e(TAG, "Service id can't be null");
             }
         });
     }
 
-    public void setServices(@NonNull List<Service> services) {
-        this.services = services;
+    public void setCompanies(@NonNull List<Company> companies) {
+        this.companies = companies;
         notifyDataSetChanged();
     }
 
     @Override
     public int getItemCount() {
-        return services.size();
+        return companies.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        @BindView(R.id.service_icon)
-        ImageView serviceIcon;
-        @BindView(R.id.service_name)
-        TextView serviceName;
+        @BindView(R.id.company_icon)
+        ImageView companyIcon;
+        @BindView(R.id.company_name)
+        TextView companyName;
 
         public View view;
-        public Service service;
+        public Company company;
 
         public ViewHolder(View view) {
             super(view);

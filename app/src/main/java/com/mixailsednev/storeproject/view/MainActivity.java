@@ -21,7 +21,10 @@ import android.widget.TextView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.mixailsednev.storeproject.R;
+import com.mixailsednev.storeproject.view.company.CompanyActivity;
 import com.mixailsednev.storeproject.view.company.CompanyFragment;
+import com.mixailsednev.storeproject.view.company.list.CompaniesFragment;
+import com.mixailsednev.storeproject.view.company.list.CompaniesRecyclerViewAdapter;
 import com.mixailsednev.storeproject.view.messages.chat.ChatActivity;
 import com.mixailsednev.storeproject.view.messages.chat.ChatFragment;
 import com.mixailsednev.storeproject.view.messages.userChat.UserChatsFragment;
@@ -39,7 +42,8 @@ public class MainActivity extends AppCompatActivity implements
         ProductListFragment.ProductSelectedListener,
         Toolbar.OnMenuItemClickListener,
         UserChatsFragment.UserChatSelectedListener,
-        NavigationView.OnNavigationItemSelectedListener
+        NavigationView.OnNavigationItemSelectedListener,
+        CompaniesRecyclerViewAdapter.CompanySelectedListener
 {
 
     private boolean twoPane;
@@ -88,7 +92,7 @@ public class MainActivity extends AppCompatActivity implements
 
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
-                    .add(R.id.main_container, ProductListFragment.newInstance())
+                    .add(R.id.main_container, CompaniesFragment.newInstance())
                     .commit();
         }
 
@@ -130,15 +134,15 @@ public class MainActivity extends AppCompatActivity implements
                         .commit();
                 drawerlayout.closeDrawers();
                 updateAppBar();
-                floatingActionButton.hide();
+                floatingActionButton.show();
                 return true;
-            case R.id.products:
+            case R.id.companies:
                 getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.main_container, ProductListFragment.newInstance())
+                        .replace(R.id.main_container, CompaniesFragment.newInstance())
                         .commit();
                 drawerlayout.closeDrawers();
                 updateAppBar();
-                floatingActionButton.show();
+                floatingActionButton.hide();
                 return true;
             case R.id.barbershop:
                 getSupportFragmentManager().beginTransaction()
@@ -150,6 +154,7 @@ public class MainActivity extends AppCompatActivity implements
             default:
                 menuItem.setChecked(true);
                 drawerlayout.closeDrawers();
+                floatingActionButton.hide();
                 return true;
         }
 
@@ -199,6 +204,20 @@ public class MainActivity extends AppCompatActivity implements
         } else {
             Intent intent = new Intent(this, ChatActivity.class);
             intent.putExtra(ChatFragment.ARG_CHAT_ID, userChatID);
+
+            this.startActivity(intent);
+        }
+    }
+
+    @Override
+    public void companySelected(@NonNull String companyId) {
+        if (twoPane) {
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.details_container, CompanyFragment.newInstance(companyId))
+                    .commit();
+        } else {
+            Intent intent = new Intent(this, CompanyActivity.class);
+            intent.putExtra(CompanyFragment.ARG_COMPANY_ID, companyId);
 
             this.startActivity(intent);
         }

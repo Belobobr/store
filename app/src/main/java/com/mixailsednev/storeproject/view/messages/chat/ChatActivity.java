@@ -1,14 +1,11 @@
 package com.mixailsednev.storeproject.view.messages.chat;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
 import com.mixailsednev.storeproject.R;
-import com.mixailsednev.storeproject.view.MainActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -36,9 +33,7 @@ public class ChatActivity extends AppCompatActivity {
 
         chatToolbar.setTitle(getString(R.string.chat));
         chatToolbar.setNavigationIcon(R.drawable.back);
-        chatToolbar.setNavigationOnClickListener((view) -> {
-            NavUtils.navigateUpTo(ChatActivity.this, new Intent(ChatActivity.this, MainActivity.class));
-        });
+        chatToolbar.setNavigationOnClickListener((view) -> finish());
 
     }
 
