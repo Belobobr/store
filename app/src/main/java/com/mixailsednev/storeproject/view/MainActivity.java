@@ -1,12 +1,9 @@
 package com.mixailsednev.storeproject.view;
 
 import android.content.Intent;
-import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
@@ -26,9 +23,8 @@ public class MainActivity extends AppCompatActivity
 
     private boolean twoPane;
     //TODO move to model view? / presenter
-    @NonNull
+    @Nullable
     private Long selectedProductId;
-    private ActionBarDrawerToggle drawerToggle;
 
     @Nullable
     @BindView(R.id.detail_toolbar)
@@ -54,14 +50,6 @@ public class MainActivity extends AppCompatActivity
         Toolbar mainToolbar = (Toolbar) findViewById(R.id.main_toolbar);
         mainToolbar.inflateMenu(R.menu.main_menu);
         mainToolbar.setTitle(getString(R.string.products));
-        mainToolbar.setNavigationIcon(R.drawable.ic_menu);
-
-        DrawerLayout drawerlayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawerToggle = new ActionBarDrawerToggle(this, drawerlayout, mainToolbar,
-                R.string.open_navigation_drawer, R.string.close_navigation_drawer) {
-        };
-        drawerlayout.setDrawerListener(drawerToggle);
-        drawerToggle.syncState();
 
         if (detailsToolbar != null) {
             detailsToolbar.setOnMenuItemClickListener(this);
@@ -93,25 +81,24 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
-    public void onConfigurationChanged(final Configuration newConfig) {
-        super.onConfigurationChanged(newConfig);
-        drawerToggle.onConfigurationChanged(newConfig);
-    }
-
-    @Override
     public void productSelected(@NonNull Long productId) {
         this.selectedProductId = productId;
 
         if (twoPane) {
-            getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.details_container, ProductDetailFragment.newInstance(productId))
-                    .commit();
+            showProduct(productId);
         } else {
             Intent intent = new Intent(this, ProductDetailActivity.class);
             intent.putExtra(ProductDetailFragment.ARG_PRODUCT_ID, productId);
 
             this.startActivity(intent);
         }
+    }
+
+    private void showProduct(@NonNull Long productId) {
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.details_container, ProductDetailFragment.newInstance(productId))
+                .commit();
+        updateDetailsMenu();
     }
 
     private void newProduct() {
@@ -122,9 +109,7 @@ public class MainActivity extends AppCompatActivity
         ProductEditFragment fragment = ProductEditFragment.newInstance(productId);
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.details_container, fragment, ProductEditFragment.TAG)
-                .addToBackStack(null)
-                .commit();
-
+                .addToBackStack(null).commit();
         updateDetailsMenu();
     }
 
@@ -132,19 +117,22 @@ public class MainActivity extends AppCompatActivity
         if (getProductEditFragment() != null) {
             getProductEditFragment().editProductComplete();
         }
-
         getSupportFragmentManager().popBackStack();
         updateDetailsMenu();
     }
 
     private void updateDetailsMenu() {
         getSupportFragmentManager().executePendingTransactions();
-
-        int menuRes = inEditMode() ? R.menu.edit_menu_menu : R.menu.details_menu;
-
         if (detailsToolbar != null) {
             detailsToolbar.getMenu().clear();
-            detailsToolbar.inflateMenu(menuRes);
+
+            if (inEditMode()) {
+                detailsToolbar.inflateMenu(R.menu.edit_menu_menu);
+            } else {
+                if (selectedProductId != null) {
+                    detailsToolbar.inflateMenu(R.menu.details_menu);
+                }
+            }
         }
     }
 

@@ -5,8 +5,4 @@
         android:icon="@drawable/ic_complete"
         android:title="@string/complete"
         app:showAsAction="ifRoom"/>
-  <item android:id="@+id/help"
-        android:icon="@drawable/ic_complete"
-        android:title="@string/help"
-        app:showAsAction="never"/>
 </menu>
